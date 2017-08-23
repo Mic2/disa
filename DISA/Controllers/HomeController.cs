@@ -15,6 +15,10 @@ namespace DISA.Controllers
 
         public IActionResult Movie()
         {
+            // Code for testing retrieval of form post data.
+            // ViewData["FormData"]= Request.Form["formdata"];
+
+
             ViewData["Message"] = "This is the movie reservation page!";
 
             return View();
