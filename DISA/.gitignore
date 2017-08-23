@@ -17,7 +17,7 @@ x64/
 x86/
 build/
 bld/
-[Bb]in/
+[Bb]in/Debug
 [Oo]bj/
 
 # Visual Studio 2015 cache/options directory
