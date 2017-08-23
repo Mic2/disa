@@ -13,16 +13,20 @@ namespace DISA.Controllers
             return View();
         }
 
-        public IActionResult About()
+        public IActionResult Movie()
         {
-            ViewData["Message"] = "Your application description page.";
+            // Code for testing retrieval of form post data.
+            // ViewData["FormData"]= Request.Form["formdata"];
+
+
+            ViewData["Message"] = "This is the movie reservation page!";
 
             return View();
         }
 
         public IActionResult Contact()
         {
-            ViewData["Message"] = "Your contact page.";
+            ViewData["Message"] = "This is the Contact page";
 
             return View();
         }

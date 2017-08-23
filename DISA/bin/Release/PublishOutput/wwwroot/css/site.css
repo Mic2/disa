@@ -3,11 +3,30 @@
     padding-bottom: 20px;
 }
 
+.header-link {
+    float: right;
+    color: white;
+    padding: 15px;
+    background-color: #73e600;
+}
+
+.header-link:hover {
+    color:white;
+    text-decoration: none;
+}
+
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+}
+
+#top-navbar {
+    background-color: #222;
+    border-color: #080808;
+    border-bottom: 3px solid #73e600;
+    box-shadow: 0px 0px 10px 8px;
 }
 
 /* Set widths on the form inputs since otherwise they're 100% wide */
@@ -17,21 +36,3 @@ textarea {
     max-width: 280px;
 }
 
-/* Carousel */
-.carousel-caption p {
-    font-size: 20px;
-    line-height: 1.4;
-}
-
-/* Make .svg files in the carousel display properly in older browsers */
-.carousel-inner .item img[src$=".svg"] {
-    width: 100%;
-}
-
-/* Hide/rearrange for smaller screens */
-@media screen and (max-width: 767px) {
-    /* Hide captions */
-    .carousel-caption {
-        display: none;
-    }
-}
