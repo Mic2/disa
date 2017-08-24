@@ -29,6 +29,10 @@
     box-shadow: 0px 0px 10px 8px;
 }
 
+#welcome-text {
+    margin-top: 60px;
+}
+
 /* Set widths on the form inputs since otherwise they're 100% wide */
 input,
 select,

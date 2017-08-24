@@ -26,6 +26,12 @@ namespace DISA.Models
             }
         }
 
+        public List<Movie> GetAllMoviesByShowTime()
+        {
+            List<Movie> moviesToDisplay = DalManager.Instance.GetAllMoviesByShowTime();
+            return moviesToDisplay;
+        }
+
         public List<Theater> Theaters { get => theaters; set => theaters = value; }
         internal List<Movie> Movies { get => movies; set => movies = value; }
     }

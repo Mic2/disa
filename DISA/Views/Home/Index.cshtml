@@ -3,7 +3,25 @@
 }
 
 <div class="row">
-    <h1>@ViewData["MovieDescription"]</h1>
+        <div id="welcome-text" class="text-center">
+            <h1>Velkommen til DISA Bio's film oversigt</h1>
+            <p>Hele vores sortiment kan ses nedenfor.</p>
+            <p>Vi glæder os meget til at se jer.</p>
+        </div>
+</div>
+
+<div class="row">
+    @foreach (var item in ViewData["Movies"] as IEnumerable<DISA.Models.Movie>)
+    {
+        <p>@item.Name</p>
+        <img src="@item.CoverImage" />
+        
+        @foreach (var showTime in item.ShowTimes as IEnumerable<DISA.Models.ShowTime>) { 
+            <p>@showTime.Time</p>
+        }
+    }
+</div>
+    
     <!--Test form for testing post data-->
     <!--<form action="Home/Movie" method="post">
         <input type="text" name="formdata" />

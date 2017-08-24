@@ -9,12 +9,16 @@ namespace DISA.Controllers
 {
     public class HomeController : Controller
     {
+
+        
         public IActionResult Index()
         {
-            Movie movie = new Movie("Awsome movie .dk", "premiere", 90, "awsome", 90, " ");
+            /*Movie movie = new Movie("Awsome movie .dk", "premiere", 90, "awsome", 90, " ");
 
-            Movie movie2 = DalManager.Instance.GetMovie(movie);
-            ViewData["MovieDescription"] = movie2.Description.ToString();
+            Movie movie2 = DalManager.Instance.GetMovie(movie);*/
+
+            List<Movie> moviesToDisplay = TheaterManager.Instance.GetAllMoviesByShowTime();
+            ViewData["Movies"] = moviesToDisplay;
             return View();
         }
 

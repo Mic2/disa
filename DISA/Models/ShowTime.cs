@@ -7,5 +7,11 @@ namespace DISA.Models
 {
     public class ShowTime
     {
+        string time;
+        Theater theater;
+
+        public ShowTime() { }
+
+        public string Time { get => time; set => time = value; }
     }
 }

@@ -79,6 +79,44 @@ namespace DISA.Models
             }
         }
 
+        public List<Movie> GetAllMoviesByShowTime()
+        {
+            string query = "SELECT * FROM Movie INNER JOIN ShowTime ON Movie.PK_movieName = ShowTime.FK_movieName WHERE time > NOW()";
+            Movie newMovie = null;
+            List<Movie> movieList = new List<Movie>();
+
+            if (ConnectToDB() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(query, con);
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                //Read the data and store them in the list
+                while (dataReader.Read())
+                {
+                    newMovie = new Movie(dataReader["PK_movieName"].ToString(), dataReader["FK_type"].ToString(), Convert.ToInt32(dataReader["runTime"]), dataReader["description"].ToString(), 1, dataReader["coverImage"].ToString());
+                    ShowTime showTime = new ShowTime();
+                    showTime.Time = dataReader["time"].ToString();
+                    newMovie.ShowTimes.Add(showTime);
+                    movieList.Add(newMovie);
+                }
+                Debug.WriteLine(newMovie.Name);
+
+
+                //close Data Reader
+                dataReader.Close();
+
+                //close Connection
+                con.Close();
+
+                return movieList;
+            }
+            else
+            {
+                return movieList;
+            }
+        }
+
+
         private List<string> ReadDbConnectionSettings()
         {
             List<string> dbSettings = new List<string>();

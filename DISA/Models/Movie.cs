@@ -13,7 +13,7 @@ namespace DISA.Models
         int runTime;
         int price;
         string coverImage;
-        List<ShowTime> showTimes;
+        List<ShowTime> showTimes = new List<ShowTime>();
 
         public Movie(string name,string type, int runTime, string description, int price, string coverImage)
         {
