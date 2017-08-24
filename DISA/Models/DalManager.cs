@@ -47,9 +47,9 @@ namespace DISA.Models
             
         }
 
-        public Movie GetMovie(Movie movie)
+        public Movie GetMovie(string movieName)
         {
-            string query = "SELECT * FROM Movie INNER JOIN MovieType ON Movie.FK_type = MovieType.PK_type WHERE Movie.PK_movieName = '"+movie.Name+"'";
+            string query = "SELECT * FROM Movie INNER JOIN MovieType ON Movie.FK_type = MovieType.PK_type WHERE Movie.PK_movieName = '"+ movieName + "'";
             Movie newMovie = null;
             
             if (ConnectToDB() == true)
