@@ -3,6 +3,8 @@
 
 /.vs/
 DISA/db.xml
+db.xml
+
 
 # User-specific files
 *.suo
