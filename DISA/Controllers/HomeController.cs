@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using DISA.Models;
 
 namespace DISA.Controllers
 {
@@ -10,6 +11,10 @@ namespace DISA.Controllers
     {
         public IActionResult Index()
         {
+            Movie movie = new Movie("Awsome movie .dk", "premiere", 90, "awsome", 90, " ");
+
+            Movie movie2 = DalManager.Instance.GetMovie(movie);
+            ViewData["MovieDescription"] = movie2.Description.ToString();
             return View();
         }
 
