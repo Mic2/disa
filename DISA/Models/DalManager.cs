@@ -47,6 +47,30 @@ namespace DISA.Models
             
         }
 
+        public string GetMovieRelatedTheater(string showTimeId) {
+            string query = "SELECT FK_theaterNumber FROM ShowTime WHERE FK_showTimeId = '"+ showTimeId + "'";
+            string theaterNumber = "";
+            if (ConnectToDB() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(query, con);
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                //Read the data and store them in the list
+                while (dataReader.Read())
+                {
+                    theaterNumber = dataReader["FK_theaterNumber"].ToString();
+                }
+
+                //close Data Reader
+                dataReader.Close();
+
+                //close Connection
+                con.Close();
+
+            }
+            return theaterNumber;
+        }
+
         public Movie GetMovie(string movieName)
         {
             string query = "SELECT * FROM Movie INNER JOIN MovieType ON Movie.FK_type = MovieType.PK_type WHERE Movie.PK_movieName = '"+ movieName + "'";
@@ -105,6 +129,7 @@ namespace DISA.Models
                 MySqlDataReader dataReader = cmd.ExecuteReader();
                 string movieName = null;
                 ShowTime showTime;
+                Theater theater;
 
                 //Read the data and store them in the list
                 while (dataReader.Read())
@@ -116,13 +141,19 @@ namespace DISA.Models
 
                         newMovie = new Movie(dataReader["PK_movieName"].ToString(), dataReader["FK_type"].ToString(), dataReader["runTime"].ToString(), dataReader["description"].ToString(), dataReader["coverImage"].ToString());
                         showTime = new ShowTime();
+                        theater = new Theater();
                         showTime.Time = dataReader["time"].ToString();
+                        theater.Number = Convert.ToInt32(dataReader["FK_theaterNumber"]);
+                        showTime.Theater = theater;
                         newMovie.ShowTimes.Add(showTime);
                         movieList.Add(newMovie);
                     }
                     else
                     {
                         showTime = new ShowTime();
+                        theater = new Theater();
+                        theater.Number = Convert.ToInt32(dataReader["FK_theaterNumber"]);
+                        showTime.Theater = theater;
                         showTime.Time = dataReader["time"].ToString();
                         newMovie.ShowTimes.Add(showTime);
                     }

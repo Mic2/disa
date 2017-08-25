@@ -29,7 +29,7 @@
             <img src="@item.CoverImage" class="cover-image"/>
             @foreach (var showTime in item.ShowTimes as IEnumerable<DISA.Models.ShowTime>)
             {
-                <p>@showTime.Time</p>
+                <p>@showTime.Time - Sal: @showTime.Theater.Number</p>
             }
             <form action="/Home/Movie" method="post">
                 <input type="text" name="movieName" value="@item.Name" hidden/>

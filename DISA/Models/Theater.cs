@@ -10,7 +10,7 @@ namespace DISA.Models
             int number;
             List<Line> lines;
 
-            public Theater(int number, List<Line> lines)
+            public Theater()
             {
                 this.Number = number;
                 this.Lines = lines;
