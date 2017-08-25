@@ -24,10 +24,12 @@
                 <label for="runtimeInput">Movie lengt in minuttes</label>
                 <input id="runtimeInput" type="text" name="runtime" placeholder="runtime" class="form-control" />
             </div>
-            <div class="form-group">
+            <div id="multiShowTimeInputWrapper" class="form-group">
                 <label for="showtimeInput">ShowTime: YYYY-MM-DD HH:MI:SS</label>
                 <input id="showtimeInput" type="datetime" name="showtime" class="form-control" placeholder="YYYY-MM-DD HH:MI:SS" />
             </div>
+            <!--These buttons is controlled by JS-->
+            <button id="addShowTimeToForm" class="btn btn-success">Add show time</button>
             <div class="form-group">
                 <label for="coverImageInput">Select cover image</label>
                 <input id="coverImageInput" type="file" name="files" class="" />

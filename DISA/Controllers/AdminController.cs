@@ -48,11 +48,23 @@ namespace DISA.Controllers
             string movieType = Request.Form["type"];
             string movieRuntime = Request.Form["runtime"];
             string movieDescription = Request.Form["description"];
+
+            // Comma seperated list of showtimes
             string movieShowTime = Request.Form["showtime"];
+
+            string[] showTimesSplitted = movieShowTime.Split(',');
+
+            Debug.WriteLine(Request.Form["showtime"]);
 
             Movie movieToCreate = new Movie(movieName, movieType, movieRuntime, movieDescription, "/Images/" + fileName);
             DalManager.Instance.InsertMovie(movieToCreate);
-            DalManager.Instance.InsertShowTime(movieToCreate.Name, movieShowTime);
+
+            // Inserting all of the showtimes inserted by the user.
+            foreach(string showTime in showTimesSplitted)
+            {
+                DalManager.Instance.InsertShowTime(movieToCreate.Name, showTime);
+            }
+            
 
             return View();
         }

@@ -103,15 +103,29 @@ namespace DISA.Models
             {
                 MySqlCommand cmd = new MySqlCommand(query, con);
                 MySqlDataReader dataReader = cmd.ExecuteReader();
+                string movieName = null;
+                ShowTime showTime;
 
                 //Read the data and store them in the list
                 while (dataReader.Read())
                 {
-                    newMovie = new Movie(dataReader["PK_movieName"].ToString(), dataReader["FK_type"].ToString(), dataReader["runTime"].ToString(), dataReader["description"].ToString(), dataReader["coverImage"].ToString());
-                    ShowTime showTime = new ShowTime();
-                    showTime.Time = dataReader["time"].ToString();
-                    newMovie.ShowTimes.Add(showTime);
-                    movieList.Add(newMovie);
+                    // Making sure we only use unique movieNames displayed on the frontpage
+                    // And inserting times to the list on the movie if we are getting more than 1 showtime
+                    if(dataReader["PK_movieName"].ToString() != movieName) {
+                        movieName = dataReader["PK_movieName"].ToString();
+
+                        newMovie = new Movie(dataReader["PK_movieName"].ToString(), dataReader["FK_type"].ToString(), dataReader["runTime"].ToString(), dataReader["description"].ToString(), dataReader["coverImage"].ToString());
+                        showTime = new ShowTime();
+                        showTime.Time = dataReader["time"].ToString();
+                        newMovie.ShowTimes.Add(showTime);
+                        movieList.Add(newMovie);
+                    }
+                    else
+                    {
+                        showTime = new ShowTime();
+                        showTime.Time = dataReader["time"].ToString();
+                        newMovie.ShowTimes.Add(showTime);
+                    }
                 }
                 Debug.WriteLine(newMovie.Name);
 

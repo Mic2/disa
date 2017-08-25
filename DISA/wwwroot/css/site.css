@@ -79,6 +79,32 @@
     margin-top: 40px;
 }
 
+#addShowTimeToForm {
+    margin-bottom: 20px;
+}
+
+#multiShowTimeInputWrapper input {
+    margin-bottom: 20px;
+}
+
+.input-remove-group {
+    display: inline;
+}
+
+.input-remove-group img {
+    max-width: 30px;
+}
+
+
+.input-remove-group input {
+    max-width: 90%;
+}
+
+
+.input-remove-group img, .input-remove-group input {
+    display: inline;
+}
+
 
 
 /* Set widths on the form inputs since otherwise they're 100% wide */
