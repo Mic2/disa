@@ -87,6 +87,16 @@
     margin-bottom: 20px;
 }
 
+#showtimeInput {
+    display: inline-block;
+    max-width: 80%;
+}
+
+#showtimeTheaterInput, #theaterNumberInput {
+    display: inline-block;
+    max-width: 80px;
+}
+
 .input-remove-group {
     display: inline;
 }
@@ -97,7 +107,7 @@
 
 
 .input-remove-group input {
-    max-width: 90%;
+    max-width: 80%;
 }
 
 
