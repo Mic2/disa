@@ -27,8 +27,10 @@ namespace DISA.Controllers
             // Code for testing retrieval of form post data.
             // ViewData["FormData"]= Request.Form["formdata"];
 
-
-            ViewData["Message"] = "This is the movie reservation page!";
+            string movieName = Request.Form["movieName"];
+            Movie movie = DalManager.Instance.GetMovie(movieName);
+            ViewData["movieName"] = movieName;
+            ViewData["movieDescription"] = movie.Description;
 
             return View();
         }
