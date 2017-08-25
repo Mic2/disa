@@ -3,24 +3,25 @@
 }
 
 <div class="row">
-        <div id="welcome-text" class="text-center">
-            <h1>Velkommen til DISA Bio's film oversigt</h1>
-            <p>Hele vores sortiment kan ses nedenfor.</p>
-            <p>Vi glæder os meget til at se jer.</p>
-        </div>
-</div>
+    <div id="welcome-text" class="text-center">
+        <h1>Velkommen til DISA Bio's film oversigt</h1>
+        <p>Hele vores sortiment kan ses nedenfor.</p>
+        <p>Vi glæder os meget til at se jer.</p>
+    </div>
 
-<div class="row">
-    
-    <div>
-        <select>
+    <div id="frontpage-date-selecbox">
+        <label for="frontPageSelectBox">Select movie show date:</label>
+        <select id="frontPageSelectBox" class="">
             @foreach (var item in ViewData["DatesWithShowTime"] as IEnumerable<DISA.Models.ShowTime>)
             {
                 <option>@item.Time</option>
             }
         </select>
     </div>
-    
+</div>
+
+<div id="front-page-movie-outer-wrapper" class="row">
+
     @foreach (var item in ViewData["Movies"] as IEnumerable<DISA.Models.Movie>)
     {
         <div class="col-md-3 movie-wrapper">
@@ -32,7 +33,7 @@
             }
             <form action="/Home/Movie" method="post">
                 <input type="text" name="movieName" value="@item.Name" hidden/>
-                <input class="reserver-button" type="submit" value="Reserver"/>
+                <input class="btn reserver-button" type="submit" value="Reserver"/>
             </form>
         </div>
     }
