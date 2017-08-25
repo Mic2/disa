@@ -33,6 +33,12 @@
     margin-top: 60px;
 }
 
+.movie-wrapper {
+    text-align: center;
+    border: 1px solid black;
+    display: inline-block
+}
+
 /* Set widths on the form inputs since otherwise they're 100% wide */
 input,
 select,

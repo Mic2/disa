@@ -12,12 +12,20 @@
 
 <div class="row">
     
+    <div>
+        <select>
+            @foreach (var item in ViewData["DatesWithShowTime"] as IEnumerable<DISA.Models.ShowTime>)
+             {
+                <option>@item.Time</option>
+             }
+        </select>
+    </div>
+    
     @foreach (var item in ViewData["Movies"] as IEnumerable<DISA.Models.Movie>)
     {
-        <div class="col-md-3">
+        <div class="col-md-3 movie-wrapper">
             <p>@item.Name</p>
-            <img src="@item.CoverImage" />
-
+            <img src="@item.CoverImage" style="border: 2px solid black" />
             @foreach (var showTime in item.ShowTimes as IEnumerable<DISA.Models.ShowTime>)
             {
                 <p>@showTime.Time</p>
@@ -28,7 +36,7 @@
             </form>
         </div>
     }
-    
+   
 </div>
     
     <!--Test form for testing post data-->
@@ -36,4 +44,3 @@
         <input type="text" name="formdata" />
         <input type="submit" name="submit" />
     </form>-->
-</div>

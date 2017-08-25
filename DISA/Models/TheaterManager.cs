@@ -33,6 +33,6 @@ namespace DISA.Models
         }
 
         public List<Theater> Theaters { get => theaters; set => theaters = value; }
-        internal List<Movie> Movies { get => movies; set => movies = value; }
+        public List<Movie> Movies { get => movies; set => movies = value; }
     }
 }
