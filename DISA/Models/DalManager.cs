@@ -60,7 +60,7 @@ namespace DISA.Models
                 //Read the data and store them in the list
                 while (dataReader.Read())
                 {
-                    newMovie = new Movie(dataReader["PK_movieName"].ToString(), dataReader["FK_type"].ToString(), Convert.ToInt32(dataReader["runTime"]), dataReader["description"].ToString(), dataReader["coverImage"].ToString());
+                    newMovie = new Movie(dataReader["PK_movieName"].ToString(), dataReader["FK_type"].ToString(), dataReader["runTime"].ToString(), dataReader["description"].ToString(), dataReader["coverImage"].ToString());
                 }
                 Debug.WriteLine(newMovie.Name);
 
@@ -79,6 +79,20 @@ namespace DISA.Models
             }
         }
 
+        public void InsertShowTime(string movieName, string dateTime)
+        {
+            if (ConnectToDB() == true)
+            {
+                MySqlCommand comm = con.CreateCommand();
+                comm.CommandText = "INSERT INTO ShowTime(FK_movieName, time) VALUES(@movieName, @showTime)";
+                comm.Parameters.AddWithValue("@movieName", movieName);
+                comm.Parameters.AddWithValue("@showTime", dateTime);
+                comm.ExecuteNonQuery();
+            }
+
+            con.Close();
+        }
+
         public List<Movie> GetAllMoviesByShowTime()
         {
             string query = "SELECT * FROM Movie INNER JOIN ShowTime ON Movie.PK_movieName = ShowTime.FK_movieName WHERE time > NOW()";
@@ -93,7 +107,7 @@ namespace DISA.Models
                 //Read the data and store them in the list
                 while (dataReader.Read())
                 {
-                    newMovie = new Movie(dataReader["PK_movieName"].ToString(), dataReader["FK_type"].ToString(), Convert.ToInt32(dataReader["runTime"]), dataReader["description"].ToString(), dataReader["coverImage"].ToString());
+                    newMovie = new Movie(dataReader["PK_movieName"].ToString(), dataReader["FK_type"].ToString(), dataReader["runTime"].ToString(), dataReader["description"].ToString(), dataReader["coverImage"].ToString());
                     ShowTime showTime = new ShowTime();
                     showTime.Time = dataReader["time"].ToString();
                     newMovie.ShowTimes.Add(showTime);

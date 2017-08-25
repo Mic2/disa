@@ -5,58 +5,58 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using DISA.Models;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
+using System.Net.Http.Headers;
 
 namespace DISA.Controllers
 {
     public class AdminController : Controller
     {
+        private IHostingEnvironment _environment;
+
+        public AdminController(IHostingEnvironment environment)
+        {
+            this._environment = environment;
+        }
+
         public IActionResult InsertMovie()
         {
-            try
-            {
-                string submit = Request.Form["movieName"];
-                if (String.IsNullOrEmpty(submit))
-                {
-                    // Getting post data
-                    string movieName = Request.Form["movieName"];
-                    string movieType = Request.Form["type"];
-                    int movieRuntime = Convert.ToInt32(Request.Form["runtime"]);
-                    string movieDescription = Request.Form["description"];
-                    string movieCoverImage = Request.Form["converImage"];
-
-                    if ((File1.PostedFile != null) && (File1.PostedFile.ContentLength > 0))
-                    {
-                        string fn = System.IO.Path.GetFileName(File1.PostedFile.FileName);
-                        string SaveLocation = Server.MapPath("Data") + "\\" + fn;
-                        try
-                        {
-                            File1.PostedFile.SaveAs(SaveLocation);
-                            Response.Write("The file has been uploaded.");
-                        }
-                        catch (Exception ex)
-                        {
-                            Response.Write("Error: " + ex.Message);
-                            //Note: Exception.Message returns detailed message that describes the current exception. 
-                            //For security reasons, we do not recommend you return Exception.Message to end users in 
-                            //production environments. It would be better just to put a generic error message. 
-                        }
-                    }
-                    else
-                    {
-                        Response.Write("Please select a file to upload.");
-                    }
-
-                    Movie movieToCreate = new Movie(movieName, movieType, movieRuntime, movieDescription, movieCoverImage);
-                    DalManager.Instance.InsertMovie(movieToCreate);
-                    return View();
-                }
-            } catch (InvalidOperationException e)
-            {
-                Debug.WriteLine(e);
-            }
             return View();
         }
 
+        [HttpPost]
+        public async Task<IActionResult> InsertMovie(ICollection<IFormFile> files)
+        {
+            string fileName = "Not set";
+            var uploads = Path.Combine(_environment.WebRootPath, "images");
+            foreach (var file in files)
+            {
+                if (file.Length > 0)
+                {
+                    using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
+                    {
+                        fileName = file.FileName;
+                        await file.CopyToAsync(fileStream);
+                    }
+                }
+            }
 
+            // Getting post data
+            string movieName = Request.Form["movieName"];
+            string movieType = Request.Form["type"];
+            string movieRuntime = Request.Form["runtime"];
+            string movieDescription = Request.Form["description"];
+            string movieShowTime = Request.Form["showtime"];
+
+            Movie movieToCreate = new Movie(movieName, movieType, movieRuntime, movieDescription, "/Images/" + fileName);
+            DalManager.Instance.InsertMovie(movieToCreate);
+            DalManager.Instance.InsertShowTime(movieToCreate.Name, movieShowTime);
+
+            return View();
+        }
     }
+
+
 }
