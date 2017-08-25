@@ -95,7 +95,7 @@ namespace DISA.Models
 
         public List<Movie> GetAllMoviesByShowTime()
         {
-            string query = "SELECT * FROM Movie INNER JOIN ShowTime ON Movie.PK_movieName = ShowTime.FK_movieName WHERE time > NOW()";
+            string query = "SELECT * FROM ((Movie INNER JOIN ShowTime ON Movie.PK_movieName = ShowTime.FK_movieName) INNER JOIN Time on ShowTime.FK_timeId = Time.timeId) WHERE Time.time > NOW()";
             Movie newMovie = null;
             List<Movie> movieList = new List<Movie>();
 
