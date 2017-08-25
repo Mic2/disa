@@ -10,18 +10,16 @@ namespace DISA.Models
         string name;
         string type;
         string description;
-        int runTime;
-        int price;
+        string runTime;
         string coverImage;
         List<ShowTime> showTimes = new List<ShowTime>();
 
-        public Movie(string name,string type, int runTime, string description, int price, string coverImage)
+        public Movie(string name,string type, string runTime, string description, string coverImage)
         {
             Name = name;
             Type = type;
             Description = description;
             RunTime = runTime;
-            Price = price;
             CoverImage = coverImage;
         }
 
@@ -29,8 +27,7 @@ namespace DISA.Models
         public string Type { get => type; set => type = value; }
         public string Name1 { get => name; set => name = value; }
         public string Description { get => description; set => description = value; }
-        public int RunTime { get => runTime; set => runTime = value; }
-        public int Price { get => price; set => price = value; }
+        public string RunTime { get => runTime; set => runTime = value; }
         public string CoverImage { get => coverImage; set => coverImage = value; }
         public List<ShowTime> ShowTimes { get => showTimes; set => showTimes = value; }
         
