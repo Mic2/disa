@@ -1,0 +1,23 @@
+
+@{
+    ViewData["Title"] = "InsertMovie";
+}
+
+<div class="row">
+    <h2>InsertMovie</h2>
+    <form method="post" enctype="multipart/form-data" runat="server">>
+        <input type="text" name="movieName" placeholder="Movie name" />
+        <select name="type">
+            <option>premiere</option>
+            <option>normal</option>
+        </select>
+        <input type="text" name="runtime" placeholder="runtime" />
+        <textarea  name="description" placeholder="description"></textarea>
+        <input type="file" name="coverImage" runat="server" />
+        <input type="submit" id="InsertMovieButton" name="submitMovieCreation" />     
+    </form>
+</div>
+
+
+
+
