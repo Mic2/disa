@@ -17,6 +17,12 @@ namespace DISA.Controllers
 
             Movie movie2 = DalManager.Instance.GetMovie(movie);*/
 
+            List<ShowTime> DatesWithShowTime = new List<ShowTime>();
+            ShowTime showTime = new ShowTime();
+            showTime.Time = "8/8-2017";
+            DatesWithShowTime.Add(showTime);
+            ViewData["DatesWithShowTime"] = DatesWithShowTime;
+
             List<Movie> moviesToDisplay = TheaterManager.Instance.GetAllMoviesByShowTime();
             ViewData["Movies"] = moviesToDisplay;
             return View();

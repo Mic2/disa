@@ -15,9 +15,9 @@
     <div>
         <select>
             @foreach (var item in ViewData["DatesWithShowTime"] as IEnumerable<DISA.Models.ShowTime>)
-             {
+            {
                 <option>@item.Time</option>
-             }
+            }
         </select>
     </div>
     
@@ -25,14 +25,14 @@
     {
         <div class="col-md-3 movie-wrapper">
             <p>@item.Name</p>
-            <img src="@item.CoverImage" style="border: 2px solid black" />
+            <img src="@item.CoverImage" class="cover-image"/>
             @foreach (var showTime in item.ShowTimes as IEnumerable<DISA.Models.ShowTime>)
             {
                 <p>@showTime.Time</p>
             }
             <form action="/Home/Movie" method="post">
                 <input type="text" name="movieName" value="@item.Name" hidden/>
-                <input type="submit" value="Reserver"/>
+                <input class="reserver-button" type="submit" value="Reserver"/>
             </form>
         </div>
     }

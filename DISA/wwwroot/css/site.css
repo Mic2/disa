@@ -1,13 +1,22 @@
 ﻿body {
+    background-color: #404040;
     padding-top: 50px;
     padding-bottom: 20px;
+}
+
+h1 {
+    color: #ffffff;
+}
+
+p {
+    color: #d9d9d9;
 }
 
 .header-link {
     float: right;
     color: white;
     padding: 15px;
-    background-color: #73e600;
+    background-color: #222;
 }
 
 .header-link:hover {
@@ -38,6 +47,16 @@
     border: 1px solid black;
     display: inline-block
 }
+
+.reserver-button {
+    background-color: #73e600;
+}
+
+.cover-image {
+    border: 2px solid black
+}
+
+
 
 /* Set widths on the form inputs since otherwise they're 100% wide */
 input,

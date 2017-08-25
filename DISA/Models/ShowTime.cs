@@ -13,5 +13,6 @@ namespace DISA.Models
         public ShowTime() { }
 
         public string Time { get => time; set => time = value; }
+        public Theater Theater { get => theater; set => theater = value; }
     }
 }
