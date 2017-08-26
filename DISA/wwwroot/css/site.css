@@ -115,6 +115,10 @@
     display: inline;
 }
 
+#moviepage-section-two {
+    margin-top: 40px;
+}
+
 
 
 /* Set widths on the form inputs since otherwise they're 100% wide */

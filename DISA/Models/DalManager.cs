@@ -71,23 +71,34 @@ namespace DISA.Models
             return theaterNumber;
         }
 
-        public Movie GetMovie(string movieName)
+        public List<Movie> GetMovieDetails(string movieName)
         {
-            string query = "SELECT * FROM Movie INNER JOIN MovieType ON Movie.FK_type = MovieType.PK_type WHERE Movie.PK_movieName = '"+ movieName + "'";
+            string query = "SELECT * FROM ((Movie INNER JOIN MovieType ON Movie.FK_type = MovieType.PK_type) INNER JOIN ShowTime ON Movie.PK_movieName = ShowTime.FK_movieName) WHERE Movie.PK_movieName = '" + movieName + "'";
             Movie newMovie = null;
-            
+            List<Movie> movieDetailsList = new List<Movie>();
+
             if (ConnectToDB() == true)
             {
                 MySqlCommand cmd = new MySqlCommand(query, con);
                 MySqlDataReader dataReader = cmd.ExecuteReader();
 
+                ShowTime showTime;
+                Theater theater;
+
                 //Read the data and store them in the list
                 while (dataReader.Read())
                 {
                     newMovie = new Movie(dataReader["PK_movieName"].ToString(), dataReader["FK_type"].ToString(), dataReader["runTime"].ToString(), dataReader["description"].ToString(), dataReader["coverImage"].ToString());
-                }
-                Debug.WriteLine(newMovie.Name);
+                    newMovie.TicketPrice = Convert.ToInt32(dataReader["price"]);
+                    showTime = new ShowTime();
+                    theater = new Theater();
+                    showTime.Time = dataReader["FK_time"].ToString();
+                    theater.Number = Convert.ToInt32(dataReader["FK_theaterNumber"]);
+                    showTime.Theater = theater;
+                    newMovie.ShowTimes.Add(showTime);
 
+                    movieDetailsList.Add(newMovie);
+                }
 
                 //close Data Reader
                 dataReader.Close();
@@ -95,11 +106,11 @@ namespace DISA.Models
                 //close Connection
                 con.Close();
 
-                return newMovie;
+                return movieDetailsList;
                 }
             else
             {
-                return newMovie;
+                return movieDetailsList;
             }
         }
 
@@ -191,6 +202,76 @@ namespace DISA.Models
             }
 
             con.Close();
+        }
+                
+        public List<Line> GetTheaterLines(int theaterNumber)
+        {
+            string query = "SELECT PK_lineId, LineNumber FROM Line WHERE FK_theaterNumber = '" + theaterNumber + "'";
+            List<Line> lines = new List<Line>();
+            Line line = null;
+
+            List<Seat> seats = new List<Seat>();
+
+            if (ConnectToDB() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(query, con);
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                //Read the data and store them in the list
+                while (dataReader.Read())
+                {
+                    // Now getting all of the seats based on the line id
+                    seats = GetTheaterLineSeats(dataReader["PK_lineId"].ToString());
+
+                    // creating new line with all the seats it has and placing it in the line List
+                    line = new Line(Convert.ToInt32(dataReader["lineNumber"]), seats);
+                    lines.Add(line);
+                }
+
+                //close Data Reader
+                dataReader.Close();
+
+                //close Connection
+                con.Close();
+
+                return lines;
+            }
+            else
+            {
+                return lines;
+            }
+        }
+
+        private List<Seat> GetTheaterLineSeats(string lineId)
+        {
+            string query = "SELECT seatNumber FROM Seat WHERE FK_lineId = '" + lineId + "'";
+            List<Seat> seats = new List<Seat>();
+            Seat seat = null;
+
+            if (ConnectToDB() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(query, con);
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                //Read the data and store them in the list
+                while (dataReader.Read())
+                {
+                    seat = new Seat(Convert.ToInt32(dataReader["seatNumber"]));
+                    seats.Add(seat);
+                }
+
+                //close Data Reader
+                dataReader.Close();
+
+                //close Connection
+                con.Close();
+
+                return seats;
+            }
+            else
+            {
+                return seats;
+            }
         }
 
         private List<string> ReadDbConnectionSettings()

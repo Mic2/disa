@@ -1,7 +1,68 @@
 ﻿@{
     ViewData["Title"] = "Movie";
 }
-<!--Test post data insertion <h1>@ViewData["FormData"]</h1>-->
-<h2>@ViewData["movieName"].</h2>
-<h3>@ViewData["movieDescription"]</h3>
+
+<div class="row">
+
+    <!--Title and image container-->
+    <div class="col-md-3">
+        <p>@ViewData["movieName"]</p>
+        <img src="@ViewData["movieCoverImage"]" class="img-responsive" />
+    </div>
+    <div class="col-md-6">
+        <p>Movie description:</p>
+        <p>@ViewData["movieDescription"]</p>
+    </div>
+    <div class="col-md-3">
+        <p>Show times:</p>
+        <div class="show-time-wrapper">
+        @foreach (var item in ViewData["movieDetailsList"] as IEnumerable<DISA.Models.Movie>)
+        {
+            @foreach (var showTime in item.ShowTimes as IEnumerable<DISA.Models.ShowTime>)
+            {
+                <p>Sal: @showTime.Theater.Number</p>
+                <p>@showTime.Time</p>
+                <hr />
+            }                   
+        }         
+        </div>
+    </div>
+</div>
+<div id="moviepage-section-two" class="row">
+    <div id="theater-wrapper" class="col-md-8">
+        <div id="theater-screen">Lærred</div>
+        <div id="line-and-seats-wrapper">
+            @foreach (var line in ViewData["theaterLines"] as IEnumerable<DISA.Models.Line>)
+            {
+                <div class="theater-line-wrapper">
+                    <div class="theater-line">
+                        <div class="theater-line-seats-wrappper">
+                            @foreach (var seat in line.Seats as IEnumerable<DISA.Models.Seat>)
+                            {
+                                <div class="theater-line-seat" data-seat-Number="@seat.Number"></div>
+                            }
+                            <div class="theater-line-number">@line.Number</div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="col-md-4">
+        <form>
+            <div class="form-group">
+                <label for="fullNameInput">Fulde navn</label>
+                <input id="fullNameInput" type="text" name="fullName" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="phoneNumberInput">Telefon nr.</label>
+                <input id="phoneNumberInput" type="tel" name="phoneNumber" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="submit" name="reserveTicketSubmit" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+
 
