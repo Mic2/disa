@@ -5,14 +5,22 @@
 }
 
 .theater-line {
-    text-align: right;
+
 }
 
 /*This style is only for Dekstop, tablet and small devices NOT under 555px users*/
 @media (min-width:552px) {
 
-    #theater-screen {
+    #theater-screen-big {
         max-width: 500px;
+    }
+
+    #theater-screen-medium {
+        max-width: 360px;
+    }
+
+    #theater-screen-small {
+        max-width: 280px;
     }
 
     .theater-line-seat {
@@ -25,8 +33,16 @@
 }
 
 @media (min-width: 456px) and (max-width:551px) {
-    #theater-screen {
+    #theater-screen-big {
         max-width: 460px;
+    }
+
+    #theater-screen-medium {
+        max-width: 300px;
+    }
+
+    #theater-screen-small {
+        max-width: 220px;
     }
 
     .theater-line-seat {
@@ -41,6 +57,14 @@
 @media (min-width: 321px) and (max-width:455px) {
     #theater-screen {
         max-width: 460px;
+    }
+    
+    #theater-screen-medium {
+        max-width: 300px;
+    }
+
+    #theater-screen-small {
+        max-width: 220px;
     }
 
     .theater-line-seat {
@@ -57,6 +81,14 @@
         max-width: 460px;
     }
 
+    #theater-screen-medium {
+        max-width: 300px;
+    }
+
+    #theater-screen-small {
+        max-width: 220px;
+    }
+
     .theater-line-seat {
         padding: 3px;
     }
@@ -67,7 +99,7 @@
 }
 
 
-#theater-screen {
+#theater-screen-big, #theater-screen-medium, #theater-screen-small {
     border-top: 4px dotted black;
     min-height: 20px;
     border-radius: 250%;
@@ -83,6 +115,7 @@
     display: inline-block;
     background-color: green;
     cursor: pointer;
+    margin-left: 3px;
 }
 
 .theater-line-wrapper {

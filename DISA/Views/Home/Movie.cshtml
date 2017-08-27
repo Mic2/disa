@@ -20,7 +20,7 @@
         {
             @foreach (var showTime in item.ShowTimes as IEnumerable<DISA.Models.ShowTime>)
             {
-                <p>Sal: @showTime.Theater.Number</p>
+                <p class="theater-movie-is-related-to">Sal: @showTime.Theater.Number</p>
                 <p>@showTime.Time</p>
                 <hr />
             }                   
@@ -30,22 +30,10 @@
 </div>
 <div id="moviepage-section-two" class="row">
     <div id="theater-wrapper" class="col-md-8">
-        <div id="theater-screen">Lærred</div>
+        
         <div id="line-and-seats-wrapper">
-            @foreach (var line in ViewData["theaterLines"] as IEnumerable<DISA.Models.Line>)
-            {
-                <div class="theater-line-wrapper">
-                    <div class="theater-line">
-                        <div class="theater-line-seats-wrappper">
-                            @foreach (var seat in line.Seats as IEnumerable<DISA.Models.Seat>)
-                            {
-                                <div class="theater-line-seat" data-seat-Number="@seat.Number"></div>
-                            }
-                            <div class="theater-line-number">@line.Number</div>
-                        </div>
-                    </div>
-                </div>
-            }
+            
+            
         </div>
     </div>
     <div class="col-md-4">

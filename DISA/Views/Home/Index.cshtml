@@ -31,7 +31,7 @@
             {
                 <p>@showTime.Time - Sal: @showTime.Theater.Number</p>
             }
-            <form action="/Home/Movie" method="post">
+            <form action="/Home/Movie" method="get">
                 <input type="text" name="movieName" value="@item.Name" hidden/>
                 <input class="btn reserver-button" type="submit" value="Reserver"/>
             </form>

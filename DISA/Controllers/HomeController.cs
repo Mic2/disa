@@ -14,9 +14,6 @@ namespace DISA.Controllers
         
         public IActionResult Index()
         {
-            /*Movie movie = new Movie("Awsome movie .dk", "premiere", 90, "awsome", 90, " ");
-
-            Movie movie2 = DalManager.Instance.GetMovie(movie);*/
 
             List<ShowTime> DatesWithShowTime = new List<ShowTime>();
             ShowTime showTime = new ShowTime();
@@ -31,15 +28,17 @@ namespace DISA.Controllers
 
         public IActionResult Movie()
         {
-            // Code for testing retrieval of form post data.
-            // ViewData["FormData"]= Request.Form["formdata"];
+            // Trying to retrive GET parameter of movieName.
             try
             {
-                string movieName = Request.Form["movieName"];
+                string movieName = Request.Query["movieName"];
+
+                // Collecting information about the movie from the DB
                 List<Movie> movieDetailsList = DalManager.Instance.GetMovieDetails(movieName);
+
+                // Storing data from DB about the movie to be displayed on the movie page
                 ViewData["movieName"] = movieName;
                 ViewData["movieDetailsList"] = movieDetailsList;
-
                 ViewData["movieDescription"] = movieDetailsList[0].Description;
                 ViewData["movieCoverImage"] = movieDetailsList[0].CoverImage;
                 ViewData["movieRunTime"] = movieDetailsList[0].RunTime;
@@ -47,7 +46,7 @@ namespace DISA.Controllers
                 ViewData["movieTicketPrice"] = movieDetailsList[0].TicketPrice;
                 ViewData["showTimes"] = movieDetailsList[0].ShowTimes;
 
-                ViewData["theaterLines"] = GetTheaterLinesAndSeats(1).Lines;
+                
             }
             catch(InvalidOperationException e)
             {
@@ -55,16 +54,7 @@ namespace DISA.Controllers
             }
             return View();
         }
-
-        private Theater GetTheaterLinesAndSeats(int theaterNumber)
-        {
-            Theater theater = new Theater();
-            theater.Number = Convert.ToInt32(theaterNumber);
-            theater.Lines = DalManager.Instance.GetTheaterLines(theaterNumber);
-
-            return theater;
-        }
-
+               
         public IActionResult Contact()
         {
             ViewData["Message"] = "This is the Contact page";
