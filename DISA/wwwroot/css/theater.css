@@ -4,98 +4,66 @@
     /*padding-right: 5px;*/
 }
 
-.theater-line {
-
-}
-
 /*This style is only for Dekstop, tablet and small devices NOT under 555px users*/
 @media (min-width:552px) {
 
-    #theater-screen-big {
-        max-width: 500px;
+    .theater-line-seat-big {
+        padding: 13px;
     }
 
-    #theater-screen-medium {
-        max-width: 360px;
+    .theater-line-seat-medium {
+        padding: 19px;
     }
 
-    #theater-screen-small {
-        max-width: 280px;
-    }
-
-    .theater-line-seat {
-        padding: 8px;
-    }
-
-    #line-and-seats-wrapper {
-        max-width: 530px;
+    .theater-line-seat-small {
+        padding: 27px;
     }
 }
 
 @media (min-width: 456px) and (max-width:551px) {
-    #theater-screen-big {
-        max-width: 460px;
-    }
 
-    #theater-screen-medium {
-        max-width: 300px;
-    }
-
-    #theater-screen-small {
-        max-width: 220px;
-    }
-
-    .theater-line-seat {
+    .theater-line-seat-big {
         padding: 6px;
     }
 
-    #line-and-seats-wrapper {
-        max-width: 430px;
+    .theater-line-seat-medium {
+        padding: 6px;
     }
+
+    .theater-line-seat-small {
+        padding: 6px;
+    }
+
 }
 
 @media (min-width: 321px) and (max-width:455px) {
-    #theater-screen {
-        max-width: 460px;
+
+    .theater-line-seat-big {
+        padding: 6px;
     }
-    
-    #theater-screen-medium {
-        max-width: 300px;
+    .theater-line-seat-medium {
+        padding: 8px;
     }
 
-    #theater-screen-small {
-        max-width: 220px;
-    }
-
-    .theater-line-seat {
-        padding: 4px;
-    }
-        
-    #line-and-seats-wrapper {
-        max-width: 320px;
+    .theater-line-seat-small {
+        padding: 12px;
     }
 }
 
 @media (max-width: 320px) {
-    #theater-screen {
-        max-width: 460px;
+
+    .theater-line-seat-big {
+        padding: 4px;
     }
 
-    #theater-screen-medium {
-        max-width: 300px;
+    .theater-line-seat-medium {
+        padding: 6px;
     }
 
-    #theater-screen-small {
-        max-width: 220px;
+    .theater-line-seat-small {
+        padding: 9px;
     }
 
-    .theater-line-seat {
-        padding: 3px;
-    }
-
-    #line-and-seats-wrapper {
-        max-width: 320px;
-    }
 }
 
 
@@ -111,15 +79,15 @@
     margin: auto;
 }
 
-.theater-line-seat {
+.theater-line-seat-general {
     display: inline-block;
     background-color: green;
     cursor: pointer;
-    margin-left: 3px;
+    margin-left: 2px;
 }
 
 .theater-line-wrapper {
-    text-align: center;
+    text-align: right;
     left: 0;
     right: 0;
     margin: auto;
