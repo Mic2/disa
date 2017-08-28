@@ -114,10 +114,53 @@ namespace DISA.Models
             }
         }
 
+        // Returns true if there was an record
+        public void CheckShowTimeExistence(string dateTime)
+        {
+            string returnValue = null;
+            // Lets check if the date is already in the db.
+            // If not then we insert it to time.
+            string query = "SELECT time FROM Time WHERE time = '" + dateTime + "'";
+
+            if(ConnectToDB() == true) {
+
+                MySqlCommand cmd = new MySqlCommand(query, con);
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                //Read the data and store them in the list
+                while (dataReader.Read())
+                {
+                        returnValue = dataReader["time"].ToString();
+                }
+                //close Data Reader
+                dataReader.Close();
+
+                //close Connection
+                con.Close();
+            }
+
+            // Now if there is no time in db, then we create one.
+            if (returnValue == null) {
+                if (ConnectToDB() == true)
+                {
+                    MySqlCommand comm = con.CreateCommand();
+                    comm.CommandText = "INSERT INTO Time (time) VALUES(@time)";
+                    comm.Parameters.AddWithValue("@time", dateTime);
+                    comm.ExecuteNonQuery();
+
+                    //close Connection
+                    con.Close();
+                }
+                
+            }
+
+        }
+
         public void InsertShowTime(string movieName, string dateTime, int theaterNumber)
         {
             if (ConnectToDB() == true)
             {
+                
                 MySqlCommand comm = con.CreateCommand();
                 comm.CommandText = "INSERT INTO ShowTime(FK_movieName, FK_theaterNumber, FK_time) VALUES(@movieName, @theaterNumber, @showTime)";
                 comm.Parameters.AddWithValue("@movieName", movieName);
@@ -131,7 +174,7 @@ namespace DISA.Models
 
         public List<Movie> GetAllMoviesByShowTime(string date, string operater)
         {
-            string query = "SELECT * FROM Movie INNER JOIN ShowTime ON Movie.PK_movieName = ShowTime.FK_movieName WHERE ShowTime.FK_time " + operater + "  '" + date+"'";
+            string query = "SELECT * FROM Movie INNER JOIN ShowTime ON Movie.PK_movieName = ShowTime.FK_movieName WHERE ShowTime.FK_time " + operater + "  '" + date +"'";
             Movie newMovie = null;
             List<Movie> movieList = new List<Movie>();
 
@@ -183,8 +226,6 @@ namespace DISA.Models
                         newMovie.ShowTimes.Add(showTime);
                     }
                 }
-                Debug.WriteLine(newMovie.Name);
-
 
                 //close Data Reader
                 dataReader.Close();
@@ -205,6 +246,7 @@ namespace DISA.Models
             if (ConnectToDB() == true)
             {
                 MySqlCommand comm = con.CreateCommand();
+                
                 comm.CommandText = "INSERT INTO Movie(PK_movieName, FK_type, runTime, description, coverImage) VALUES(@movieName, @movieType, @runTime, @description, @coverImage)";
                 comm.Parameters.AddWithValue("@movieName", movie.Name);
                 comm.Parameters.AddWithValue("@movieType", movie.Type);

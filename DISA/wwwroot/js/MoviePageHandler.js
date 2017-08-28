@@ -1,7 +1,7 @@
 ﻿$(".theater-movie-is-related-to").on("click", function () {
     var value = $(this).text();
     var number = value.replace("Sal: ", "");
-    console.log(number);
+
     $.ajax({
         url: '/api/getTheater',
         type: "POST",

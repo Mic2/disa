@@ -61,7 +61,8 @@ namespace DISA.Controllers
 
             // Inserting all of the showtimes inserted by the user.
             foreach (string showTime in showTimesSplitted)
-            {               
+            {         
+                DalManager.Instance.CheckShowTimeExistence(showTime);
                 DalManager.Instance.InsertShowTime(movieToCreate.Name, showTime, Convert.ToInt32(theatersSplitted[count]));
                 count = count + 1;
             }
