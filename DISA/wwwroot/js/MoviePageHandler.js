@@ -1,4 +1,10 @@
 ﻿$(".theater-movie-is-related-to").on("click", function () {
+
+    $.each(document.getElementsByClassName("theater-movie-is-related-to"), function (value) {
+        $(this).removeClass("choosen");
+    });
+    $(this).addClass("choosen");
+
     var value = $(this).text();
     var number = value.replace("Sal: ", "");
 
