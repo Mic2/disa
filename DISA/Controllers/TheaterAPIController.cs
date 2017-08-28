@@ -35,6 +35,34 @@ namespace DISA.Controllers
                       
         }
 
+        [Route("/api/getMoviesByDate")]
+        [HttpPost]
+        public List<Movie> GetMoviesByDate([FromBody]string val)
+        {
+            try
+            {
+                List<Movie> movieList = new List<Movie>();
+                if (val == "Default")
+                {
+                    movieList = DalManager.Instance.GetAllMoviesByShowTime("NOW()", ">");
+                }
+                else
+                {
+                    // Storing daa about the theater that the user has choosen, this we only want to do with AJAX when the user clicks an time with a theater attached.
+                    movieList = DalManager.Instance.GetAllMoviesByShowTime(val + '%', "like");
+                }
+                return movieList;
+            }
+            catch (Exception e)
+            {
+                List<Movie> movieList = new List<Movie>();
+                Debug.WriteLine(e);
+                return movieList;
+
+            }
+
+        }
+
         private Theater GetTheaterLinesAndSeats(int theaterNumber)
         {
             Theater theater = new Theater();

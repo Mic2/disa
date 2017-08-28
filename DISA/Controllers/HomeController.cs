@@ -14,15 +14,20 @@ namespace DISA.Controllers
         
         public IActionResult Index()
         {
-
-            List<ShowTime> DatesWithShowTime = new List<ShowTime>();
-            ShowTime showTime = new ShowTime();
-            showTime.Time = "8/8-2017";
-            DatesWithShowTime.Add(showTime);
-            ViewData["DatesWithShowTime"] = DatesWithShowTime;
-
             List<Movie> moviesToDisplay = TheaterManager.Instance.GetAllMoviesByShowTime();
             ViewData["Movies"] = moviesToDisplay;
+
+
+            List<DateTime> DatesWithShowTime = new List<DateTime>();
+            foreach (Movie movie in moviesToDisplay)
+            {
+                foreach (ShowTime showTime in movie.ShowTimes)
+                {
+                    DatesWithShowTime.Add(showTime.Time.Date);
+                }
+            }
+            DatesWithShowTime = DatesWithShowTime.Distinct().ToList();
+            ViewData["DatesWithShowTime"] = DatesWithShowTime;
             return View();
         }
 

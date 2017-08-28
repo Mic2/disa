@@ -28,7 +28,8 @@ namespace DISA.Models
 
         public List<Movie> GetAllMoviesByShowTime()
         {
-            List<Movie> moviesToDisplay = DalManager.Instance.GetAllMoviesByShowTime();
+           
+            List<Movie> moviesToDisplay = DalManager.Instance.GetAllMoviesByShowTime(DateTime.Now.ToString("YYYY-MM-dd HH:mm:ss"), ">");
             return moviesToDisplay;
         }
 

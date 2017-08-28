@@ -12,13 +12,15 @@
     <div id="frontpage-date-selecbox">
         <label for="frontPageSelectBox">Select movie show date:</label>
         <select id="frontPageSelectBox" class="">
-            @foreach (var item in ViewData["DatesWithShowTime"] as IEnumerable<DISA.Models.ShowTime>)
+            <option data-real-date="Default" selected="selected">all</option>
+            @foreach (var showTime in ViewData["DatesWithShowTime"] as IEnumerable<DateTime>)
             {
-                <option>@item.Time</option>
+                <option data-real-date="@showTime.ToString("yyyy-MM-dd")">@showTime.ToString("MM-dd")</option>
             }
         </select>
     </div>
 </div>
+
 
 <div id="front-page-movie-outer-wrapper" class="row">
 
@@ -27,10 +29,6 @@
         <div class="col-md-3 movie-wrapper">
             <p>@item.Name</p>
             <img src="@item.CoverImage" class="cover-image"/>
-            @foreach (var showTime in item.ShowTimes as IEnumerable<DISA.Models.ShowTime>)
-            {
-                <p>@showTime.Time - Sal: @showTime.Theater.Number</p>
-            }
             <form action="/Home/Movie" method="get">
                 <input type="text" name="movieName" value="@item.Name" hidden/>
                 <input class="btn reserver-button" type="submit" value="Reserver"/>
