@@ -92,6 +92,7 @@ namespace DISA.Models
                     newMovie.TicketPrice = Convert.ToInt32(dataReader["price"]);
                     showTime = new ShowTime();
                     theater = new Theater();
+                    showTime.ShowTimeId = Convert.ToInt32(dataReader["PK_showTimeId"]);
                     showTime.Time = Convert.ToDateTime(dataReader["FK_time"]);
                     theater.Number = Convert.ToInt32(dataReader["FK_theaterNumber"]);
                     showTime.Theater = theater;
@@ -204,6 +205,7 @@ namespace DISA.Models
                         newMovie = new Movie(dataReader["PK_movieName"].ToString(), dataReader["FK_type"].ToString(), dataReader["runTime"].ToString(), dataReader["description"].ToString(), dataReader["coverImage"].ToString());
                         showTime = new ShowTime();
                         theater = new Theater();
+                        showTime.ShowTimeId = Convert.ToInt32(dataReader["PK_showTimeId"]);
                         showTime.Time = Convert.ToDateTime(dataReader["FK_time"]);
                         theater.Number = Convert.ToInt32(dataReader["FK_theaterNumber"]);
                         showTime.Theater = theater;

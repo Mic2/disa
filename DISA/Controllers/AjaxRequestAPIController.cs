@@ -72,6 +72,24 @@ namespace DISA.Controllers
             return theater;
         }
 
+        [Route("/api/makeReservation")]
+        [HttpPost]
+        public void MakeReservation([FromBody]Customer json)
+        {
+            try
+            {
+                //Customer newCustomer = new Customer(customer.fullName);
+                Debug.WriteLine("#####################################################");
+                Debug.WriteLine(json.FullName);
+                Debug.WriteLine("#####################################################");
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+            }
+
+        }
+
 
     }
 }

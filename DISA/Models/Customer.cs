@@ -7,17 +7,15 @@ namespace DISA.Models
 {
     public class Customer
     {
-        string firstName;
-        string lastName;
+        string fullName;
         int phoneNumber;
-        public Customer(string firstName, string lastname, int phoneNumber)
+        public Customer(string fullName, int phoneNumber)
         {
-            this.FirstName = firstName;
-            this.LastName = lastname;
+            this.FullName = fullName;
             this.PhoneNumber = phoneNumber;
         }
-        public string FirstName { get => firstName; set => firstName = value; }
-        public string LastName { get => lastName; set => lastName = value; }
+
         public int PhoneNumber { get => phoneNumber; set => phoneNumber = value; }
+        public string FullName { get => fullName; set => fullName = value; }
     }
 }
