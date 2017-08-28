@@ -174,7 +174,7 @@ namespace DISA.Models
 
         public List<Movie> GetAllMoviesByShowTime(string date, string operater)
         {
-            string query = "SELECT * FROM Movie INNER JOIN ShowTime ON Movie.PK_movieName = ShowTime.FK_movieName WHERE ShowTime.FK_time " + operater + "  '" + date +"'";
+            string query = "SELECT * FROM Movie INNER JOIN ShowTime ON Movie.PK_movieName = ShowTime.FK_movieName WHERE ShowTime.FK_time " + operater + "  '" + date + "'";
             Movie newMovie = null;
             List<Movie> movieList = new List<Movie>();
 
@@ -183,7 +183,6 @@ namespace DISA.Models
                 MySqlCommand cmd = new MySqlCommand(query, con);
                 MySqlDataReader dataReader = cmd.ExecuteReader();
                 List<string> movieNames = new List<string>();
-                string movieName;
                 ShowTime showTime;
                 Theater theater;
                 bool listCheck = false;  
@@ -194,17 +193,13 @@ namespace DISA.Models
                     // Making sure we only use unique movieNames displayed on the frontpage
                     // And inserting times to the list on the movie if we are getting more than 1 showtime
 
-                    foreach (string moviename in movieNames)
+                    if (movieNames.Contains(dataReader["PK_movieName"].ToString()))
                     {
-                        if (moviename.Contains(dataReader["PK_movieName"].ToString()))
-                        {
-                            listCheck = true;
-                        }
+                        listCheck = true;
                     }
 
                     if(listCheck == false)
                     {
-                        movieName = dataReader["PK_movieName"].ToString();
 
                         newMovie = new Movie(dataReader["PK_movieName"].ToString(), dataReader["FK_type"].ToString(), dataReader["runTime"].ToString(), dataReader["description"].ToString(), dataReader["coverImage"].ToString());
                         showTime = new ShowTime();
@@ -213,7 +208,7 @@ namespace DISA.Models
                         theater.Number = Convert.ToInt32(dataReader["FK_theaterNumber"]);
                         showTime.Theater = theater;
                         newMovie.ShowTimes.Add(showTime);
-                        movieNames.Add(movieName);
+                        movieNames.Add(dataReader["PK_movieName"].ToString());
                         movieList.Add(newMovie);
                     }
                     else
@@ -224,7 +219,11 @@ namespace DISA.Models
                         showTime.Theater = theater;
                         showTime.Time = Convert.ToDateTime(dataReader["FK_time"]);
                         newMovie.ShowTimes.Add(showTime);
+                        
                     }
+
+                    listCheck = false;
+
                 }
 
                 //close Data Reader
