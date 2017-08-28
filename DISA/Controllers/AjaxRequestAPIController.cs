@@ -11,7 +11,7 @@ namespace DISA.Controllers
 {
     [Produces("application/json")]
     [Route("api/TheaterAPI")]
-    public class TheaterAPIController : Controller
+    public class AjaxRequestAPIController : Controller
     {
         [Route("/api/getTheater")]
         [HttpPost]
