@@ -31,18 +31,21 @@
 });
 
 function SetupTheater(theaterSize, data) {
+    var html = '<div class="theater-line-wrapper">';
     $.each(data, function (lineIndex, line) {
-        var html = '<div class="theater-line-wrapper">';
+        
         html += '<div class="theater-line">';
         html += '<div class="theater-line-seats-wrappper">';
 
         $.each(line.seats, function (seatIndex, seat) {
-            html += '<div class="theater-line-seat" data-seat-Number="' + seat.number + '"></div>';
+            html += '<div class="theater-line-seat-general theater-line-seat-' + theaterSize + '" data-seat-Number="' + seat.number + '"></div>';
         });
         html += '<div class="theater-line-number">' + line.number + '</div>';
         html += '</div>';
         html += '</div>';
-        html += '</div>';
-        $("#line-and-seats-wrapper").append(html);
+        
+        
     });
+    html += '</div>';
+    $("#line-and-seats-wrapper").append(html);
 }
