@@ -7,6 +7,7 @@ namespace DISA.Models
 {
     public class Seat
     {
+        int seatId;
         int number;
 
         public Seat(int number)
@@ -15,5 +16,6 @@ namespace DISA.Models
         }
 
         public int Number { get => number; set => number = value; }
+        public int SeatId { get => seatId; set => seatId = value; }
     }
 }

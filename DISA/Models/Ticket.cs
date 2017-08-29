@@ -13,7 +13,7 @@ namespace DISA.Models
         int seat;
         int price;
         Customer customer;
-        public Ticket(string movieName, int showtime, int line, int seat, int price, Customer customer)
+        public Ticket()
         {
             this.MovieName = movieName;
             this.Showtime = showtime;

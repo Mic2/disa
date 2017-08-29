@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using DISA.Models;
 using System.Diagnostics;
+using Newtonsoft.Json.Linq;
+using MySqlX.XDevAPI.Common;
+using Newtonsoft.Json;
 
 namespace DISA.Controllers
 {
@@ -72,16 +75,45 @@ namespace DISA.Controllers
             return theater;
         }
 
-        [Route("/api/makeReservation")]
+        [Route("/api/insertCustomer")]
         [HttpPost]
-        public void MakeReservation([FromBody]Customer json)
+        public void InsertCustomerFromReservation([FromBody]JObject data)
         {
             try
             {
-                //Customer newCustomer = new Customer(customer.fullName);
-                Debug.WriteLine("#####################################################");
-                Debug.WriteLine(json.FullName);
-                Debug.WriteLine("#####################################################");
+
+                dynamic json = data;
+                JObject customer = json.Customer;
+  
+                Customer newCustomer = customer.ToObject<Customer>();
+
+                DalManager.Instance.InsertCustomer(newCustomer.FullName, Convert.ToInt32(newCustomer.PhoneNumber));
+
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+            }
+
+        }
+
+        [Route("/api/insertTicket")]
+        [HttpPost]
+        public void InsertTicketFromReservation([FromBody]JObject data)
+        {
+            try
+            {
+
+                dynamic json = data;
+                JObject customer = json.Customer;
+                JObject showTime = json.ShowTime;
+                JObject seatId = json.SeatId;
+
+                Customer newCustomer = customer.ToObject<Customer>();
+                ShowTime newShowTime = showTime.ToObject<ShowTime>();
+                Seat seat = seatId.ToObject<Seat>();
+
+                DalManager.Instance.InsertTicket(Convert.ToInt32(newCustomer.PhoneNumber), newShowTime.ShowTimeId, seat.SeatId);
             }
             catch (Exception e)
             {

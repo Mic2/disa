@@ -111,6 +111,9 @@ namespace DISA.Models
                 }
             else
             {
+                //close Connection
+                con.Close();
+
                 return movieDetailsList;
             }
         }
@@ -300,7 +303,7 @@ namespace DISA.Models
 
         private List<Seat> GetTheaterLineSeats(string lineId)
         {
-            string query = "SELECT seatNumber FROM Seat WHERE FK_lineId = '" + lineId + "'";
+            string query = "SELECT PK_seatId, seatNumber FROM Seat WHERE FK_lineId = '" + lineId + "'";
             List<Seat> seats = new List<Seat>();
             Seat seat = null;
 
@@ -313,6 +316,7 @@ namespace DISA.Models
                 while (dataReader.Read())
                 {
                     seat = new Seat(Convert.ToInt32(dataReader["seatNumber"]));
+                    seat.SeatId = Convert.ToInt32(dataReader["PK_seatId"]);
                     seats.Add(seat);
                 }
 
@@ -386,6 +390,39 @@ namespace DISA.Models
                 }
             }
             return dbSettings;
+        }
+
+        public void InsertTicket(int phoneNumber, int showTimeId, int seatId)
+        {
+            if (ConnectToDB() == true)
+            {
+                MySqlCommand comm = con.CreateCommand();
+
+                comm.CommandText = "INSERT INTO Ticket(FK_phoneNumber, FK_showTimeId, FK_seatId) VALUES(@phoneNumber, @showTimeId, @seatId)";
+                comm.Parameters.AddWithValue("@phoneNumber", phoneNumber);
+                comm.Parameters.AddWithValue("@showTimeId", showTimeId);
+                comm.Parameters.AddWithValue("@seatId", seatId);
+                comm.ExecuteNonQuery();
+            }
+
+            con.Close();
+        }
+
+        public void InsertCustomer(string fullName, int phoneNumber)
+        {
+            if (ConnectToDB() == true)
+            {
+                MySqlCommand comm = con.CreateCommand();
+
+                Debug.WriteLine("WE ARE IN HERE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
+                comm.CommandText = "INSERT INTO Customer(PK_phoneNumber, fullName) VALUES(@phoneNumber, @fullName)";
+                comm.Parameters.AddWithValue("@phoneNumber", phoneNumber);
+                comm.Parameters.AddWithValue("@fullName", fullName);
+                comm.ExecuteNonQuery();
+            }
+
+            con.Close();
         }
     }
 }

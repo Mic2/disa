@@ -47,6 +47,7 @@ function SetupTheater(theaterSize, data) {
 
         $.each(line.seats, function (seatIndex, seat) {
             html += '<div class="theater-line-seat-general theater-line-seat-' + theaterSize + '" data-seat-Number="' + seat.number + '"></div>';
+            html += '<div data-seat-id="' + seat.seatId + '" hidden></div>';
         });
         html += '<div class="theater-line-number">' + line.number + '</div>';
         html += '</div>';
@@ -65,7 +66,7 @@ function SetupTheater(theaterSize, data) {
         var lastSeatChoosen = choosenSeats[choosenSeats.length - 1];
         var seatNumber = $(this).data("seat-number");
         var lineNumber = $(this).nextAll('.theater-line-number').text();
-        console.log(choosenLine[0]);
+        var choosenSeatId = $(this).next().data("seat-id");
 
         if (typeof choosenLine[0] === 'undefined' || choosenSeats.length === 0) {
             choosenLine[0] = lineNumber;
@@ -76,6 +77,7 @@ function SetupTheater(theaterSize, data) {
             if (lineNumber === choosenLine[0] && firstSeatChoosen === seatNumber || lastSeatChoosen === seatNumber) {              
                 $(this).removeClass("seat-choosen");
                 var indexToRemove = choosenSeats.indexOf(seatNumber);
+                choosenSeatsIds.splice(indexToRemove, 1);
                 choosenSeats.splice(indexToRemove, 1);
             }
         }
@@ -84,12 +86,16 @@ function SetupTheater(theaterSize, data) {
         if (alreadyChoosen === false && lineNumber === choosenLine[0]) {
             if (choosenSeats.length === 0 || lineNumber === choosenLine[0] && seatNumber === lastSeatChoosen + 1 || seatNumber === lastSeatChoosen - 1 || seatNumber === firstSeatChoosen + 1 || seatNumber === firstSeatChoosen - 1) {
                 choosenSeats.push(seatNumber);
+                choosenSeatsIds.push(choosenSeatId);
                 $(this).addClass("seat-choosen");
                 choosenSeats.sort();
             }
             
         }
+
+        console.log(choosenSeatsIds);
     });
+
 
 }
 
@@ -100,18 +106,14 @@ $("#reserveTicketForm").submit(function (e) {
     var phoneNumber = document.getElementById('phoneNumberInput').value;
     var movieTitle = $('#movieTitle p').text();
 
-    var obj = { "fullName": fullname, "phoneNumber": phoneNumber };
-    /*obj[fullName] = fullname;
-    obj[phoneNumber] = phoneNumber;*/
+    var customer = { "FullName": fullname, "PhoneNumber": phoneNumber };
+    var showTime = { "ShowTimeId": showTimeId };
 
-
-    //console.log(JSON.stringify(data));
-
-    // Send data for reservation
     $.ajax({
-        url: '/api/makeReservation',
+        url: '/api/insertCustomer',
         type: "POST",
-        data: JSON.stringify(obj),
+        async: false,
+        data: JSON.stringify({ Customer: customer }),
         contentType: "application/json; charset=UTF-8",
         dataType: "json",
         success: function (data) {
@@ -120,6 +122,27 @@ $("#reserveTicketForm").submit(function (e) {
 
     });
 
+    console.log(choosenSeatsIds);
+    $.each(choosenSeatsIds, function (index, value) {
+        console.log(value);
+        var seatId = { "SeatId": value };
+    
+        // Send data for reservation
+        $.ajax({
+            url: '/api/insertTicket',
+            type: "POST",
+            async: false,
+            data: JSON.stringify({ Customer: customer, ShowTime: showTime, SeatId: seatId }),
+            contentType: "application/json; charset=UTF-8",
+            dataType: "json",
+            success: function(data) {
+                console.log("We are done");
+            },
+            error: function (data) {
+                console.log("hey !!! " + data.responseText);
+            }
+           });
+    });
 });
 
 
