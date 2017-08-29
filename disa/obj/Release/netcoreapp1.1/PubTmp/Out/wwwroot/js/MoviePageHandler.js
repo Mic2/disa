@@ -1,5 +1,10 @@
 ﻿$(".theater-movie-is-related-to").on("click", function () {
 
+    // Resseting values
+    choosenSeats = [];
+    choosenSeatsIds = [];
+    choosenLine = [];
+
     $.each(document.getElementsByClassName("theater-movie-is-related-to"), function (value) {
         $(this).removeClass("choosen");
     });
@@ -85,15 +90,18 @@ function SetupTheater(theaterSize, data) {
         
         if (alreadyChoosen === false && lineNumber === choosenLine[0]) {
             if (choosenSeats.length === 0 || lineNumber === choosenLine[0] && seatNumber === lastSeatChoosen + 1 || seatNumber === lastSeatChoosen - 1 || seatNumber === firstSeatChoosen + 1 || seatNumber === firstSeatChoosen - 1) {
+                console.log(firstSeatChoosen);
                 choosenSeats.push(seatNumber);
                 choosenSeatsIds.push(choosenSeatId);
                 $(this).addClass("seat-choosen");
-                choosenSeats.sort();
+                choosenSeats.sort(function (a, b) { //Array now becomes [7, 8, 25, 41]
+                    return a - b
+                })
             }
             
         }
-
-        console.log(choosenSeatsIds);
+        /*console.log(choosenSeats);
+        console.log(choosenSeatsIds);*/
     });
 
 
