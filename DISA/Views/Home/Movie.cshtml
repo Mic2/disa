@@ -5,8 +5,8 @@
 <div class="row">
 
     <!--Title and image container-->
-    <div class="col-md-3">
-        <p>@ViewData["movieName"]</p>
+    <div id="movieTitle" class="col-md-3">
+        <p >@ViewData["movieName"]</p>
         <img src="@ViewData["movieCoverImage"]" class="img-responsive" />
     </div>
     <div class="col-md-6">
@@ -14,7 +14,7 @@
         <p>@ViewData["movieDescription"]</p>
     </div>
     <div class="col-md-3">
-        <p>Show times:</p>
+        <p>Choose show time:</p>
         <div class="show-time-wrapper">
         @foreach (var item in ViewData["movieDetailsList"] as IEnumerable<DISA.Models.Movie>)
         {
@@ -22,6 +22,7 @@
             {
                 <p class="theater-movie-is-related-to">Sal: @showTime.Theater.Number</p>
                 <p>@showTime.Time</p>
+                <div class="show-time-id" data-showtime-id="@showTime.ShowTimeId"></div>
                 <hr />
             }                   
         }         
@@ -37,7 +38,7 @@
         </div>
     </div>
     <div class="col-md-4">
-        <form>
+        <form id="reserveTicketForm">
             <div class="form-group">
                 <label for="fullNameInput">Fulde navn</label>
                 <input id="fullNameInput" type="text" name="fullName" class="form-control" />
