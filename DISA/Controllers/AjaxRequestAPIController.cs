@@ -11,7 +11,7 @@ namespace DISA.Controllers
 {
     [Produces("application/json")]
     [Route("api/TheaterAPI")]
-    public class TheaterAPIController : Controller
+    public class AjaxRequestAPIController : Controller
     {
         [Route("/api/getTheater")]
         [HttpPost]
@@ -44,7 +44,7 @@ namespace DISA.Controllers
                 List<Movie> movieList = new List<Movie>();
                 if (val == "Default")
                 {
-                    movieList = DalManager.Instance.GetAllMoviesByShowTime("NOW()", ">");
+                    movieList = DalManager.Instance.GetAllMoviesByShowTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), ">");
                 }
                 else
                 {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -28,8 +29,10 @@ namespace DISA.Models
 
         public List<Movie> GetAllMoviesByShowTime()
         {
-           
-            List<Movie> moviesToDisplay = DalManager.Instance.GetAllMoviesByShowTime(DateTime.Now.ToString("YYYY-MM-dd HH:mm:ss"), ">");
+            Debug.WriteLine("#############################################################");
+            Debug.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+            Debug.WriteLine("#############################################################");
+            List<Movie> moviesToDisplay = DalManager.Instance.GetAllMoviesByShowTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), ">");
             return moviesToDisplay;
         }
 
