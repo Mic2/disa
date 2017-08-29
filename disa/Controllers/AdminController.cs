@@ -55,7 +55,7 @@ namespace DISA.Controllers
             string[] showTimesSplitted = movieShowTime.Split(',');
             string[] theatersSplitted = theater.Split(',');
 
-            Movie movieToCreate = new Movie(movieName, movieType, movieRuntime, movieDescription, "/Images/" + fileName);
+            Movie movieToCreate = new Movie(movieName, movieType, movieRuntime, movieDescription, "/images/" + fileName);
             DalManager.Instance.InsertMovie(movieToCreate);
             int count = 0;
 
