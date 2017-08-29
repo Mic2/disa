@@ -1,0 +1,9 @@
+C:\Visual Studio Workspaces\disa\disa\bin\Release\netcoreapp1.1\disa.deps.json
+C:\Visual Studio Workspaces\disa\disa\bin\Release\netcoreapp1.1\disa.runtimeconfig.json
+C:\Visual Studio Workspaces\disa\disa\bin\Release\netcoreapp1.1\disa.runtimeconfig.dev.json
+C:\Visual Studio Workspaces\disa\disa\bin\Release\netcoreapp1.1\disa.dll
+C:\Visual Studio Workspaces\disa\disa\bin\Release\netcoreapp1.1\disa.pdb
+C:\Visual Studio Workspaces\disa\disa\obj\Release\netcoreapp1.1\disa.csproj.CoreCompileInputs.cache
+C:\Visual Studio Workspaces\disa\disa\obj\Release\netcoreapp1.1\disa.AssemblyInfo.cs
+C:\Visual Studio Workspaces\disa\disa\obj\Release\netcoreapp1.1\disa.dll
+C:\Visual Studio Workspaces\disa\disa\obj\Release\netcoreapp1.1\disa.pdb
