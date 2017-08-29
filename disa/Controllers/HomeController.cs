@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using DISA.Models;
 using System.Diagnostics;
+using System.Security.Principal;
 
 namespace DISA.Controllers
 {
@@ -28,6 +29,10 @@ namespace DISA.Controllers
             }
             DatesWithShowTime = DatesWithShowTime.Distinct().ToList();
             ViewData["DatesWithShowTime"] = DatesWithShowTime;
+
+            string username = WindowsIdentity.GetCurrent().Name;
+            ViewData["userId"] = username;
+
             return View();
         }
 
