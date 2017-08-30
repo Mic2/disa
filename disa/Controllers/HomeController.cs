@@ -13,7 +13,6 @@ namespace DISA.Controllers
 {
     public class HomeController : Controller
     {
-        //public string LoggedInUser => User.Identity.Name.ToString();
 
         public IActionResult Index()
         {
@@ -32,9 +31,9 @@ namespace DISA.Controllers
             DatesWithShowTime = DatesWithShowTime.Distinct().ToList();
             ViewData["DatesWithShowTime"] = DatesWithShowTime;
 
-            
 
-            //ViewData["userId"] = LoggedInUser;
+            string username = WindowsIdentity.GetCurrent().Name;
+            ViewData["userId"] = username;
 
             return View();
         }
