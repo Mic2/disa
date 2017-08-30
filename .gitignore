@@ -3,10 +3,8 @@
 
 .vs/*
 .vs/disa/v15/sqlite3/storage.ide
-.vs/config/applicationhost.config
 disa/db.xml
-disa/bin/Debug/*
-disa/obj/*
+
 
 # User-specific files
 *.suo
