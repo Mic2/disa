@@ -6,13 +6,15 @@ using Microsoft.AspNetCore.Mvc;
 using DISA.Models;
 using System.Diagnostics;
 using System.Security.Principal;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
 
 namespace DISA.Controllers
 {
     public class HomeController : Controller
     {
+        //public string LoggedInUser => User.Identity.Name.ToString();
 
-        
         public IActionResult Index()
         {
             List<Movie> moviesToDisplay = TheaterManager.Instance.GetAllMoviesByShowTime();
@@ -30,8 +32,9 @@ namespace DISA.Controllers
             DatesWithShowTime = DatesWithShowTime.Distinct().ToList();
             ViewData["DatesWithShowTime"] = DatesWithShowTime;
 
-            string username = WindowsIdentity.GetCurrent().Name;
-            ViewData["userId"] = username;
+            
+
+            //ViewData["userId"] = LoggedInUser;
 
             return View();
         }
