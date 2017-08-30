@@ -17,7 +17,7 @@
 
         // Asking php to get the group the user is part of
         $.ajax({
-            url: "http://ldap.disa.com",
+            url: "https://ldap.disa.com",
             data: { userToCheck: domainAndUsername[1] },
             method: "post",
             type: "application/json",
