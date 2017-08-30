@@ -16,3 +16,4 @@ C:\Visual studio projects\disa\disa\bin\Release\netcoreapp1.1\disa.pdb
 C:\Visual studio projects\disa\disa\obj\Release\netcoreapp1.1\disa.AssemblyInfo.cs
 C:\Visual studio projects\disa\disa\obj\Release\netcoreapp1.1\disa.dll
 C:\Visual studio projects\disa\disa\obj\Release\netcoreapp1.1\disa.pdb
+C:\Visual studio projects\disa\disa\obj\Release\netcoreapp1.1\disa.csprojResolveAssemblyReference.cache
