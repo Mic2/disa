@@ -122,12 +122,11 @@ $("#reserveTicketForm").submit(function (e) {
         type: "POST",
         async: false,
         data: JSON.stringify({ Customer: customer }),
-        contentType: "application/json; charset=UTF-8",
+        contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {
             console.log(data);
         }
-
     });
 
     console.log(choosenSeatsIds);
@@ -141,7 +140,7 @@ $("#reserveTicketForm").submit(function (e) {
             type: "POST",
             async: false,
             data: JSON.stringify({ Customer: customer, ShowTime: showTime, SeatId: seatId }),
-            contentType: "application/json; charset=UTF-8",
+            contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function(data) {
                 console.log("We are done");
