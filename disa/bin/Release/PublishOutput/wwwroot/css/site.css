@@ -73,6 +73,8 @@
     left: 0;
     right: 0;
     margin: auto;
+    width: 230px;
+    height: 345px;
 }
 
 #front-page-movie-outer-wrapper {
