@@ -31,10 +31,6 @@ namespace DISA.Controllers
             DatesWithShowTime = DatesWithShowTime.Distinct().ToList();
             ViewData["DatesWithShowTime"] = DatesWithShowTime;
 
-
-            string username = WindowsIdentity.GetCurrent().Name;
-            ViewData["userId"] = username;
-
             return View();
         }
 
