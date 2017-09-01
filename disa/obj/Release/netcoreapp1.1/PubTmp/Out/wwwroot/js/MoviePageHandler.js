@@ -20,8 +20,6 @@
     choosenTheater = number;
     showTimeId = $(this).next().next('.show-time-id').data("showtime-id");
 
-    console.log();
-
     var theater = { "Number": number};
     var showTime = { "ShowTimeId": showTimeId };
 
