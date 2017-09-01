@@ -86,6 +86,13 @@
     margin-left: 2px;
 }
 
+.theater-line-seat-reserved {
+    display: inline-block;
+    background-color: red;
+    cursor: not-allowed;
+    margin-left: 2px;
+}
+
 .theater-line-wrapper {
     text-align: right;
     left: 0;

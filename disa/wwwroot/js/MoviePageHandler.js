@@ -16,10 +16,15 @@
     choosenTheater = number;
     showTimeId = $(this).next().next('.show-time-id').data("showtime-id");
 
+    console.log();
+
+    var theater = { "Number": number};
+    var showTime = { "ShowTimeId": showTimeId };
+
     $.ajax({
         url: '/api/getTheater',
         type: "POST",
-        data: JSON.stringify(number),
+        data: JSON.stringify({ Theater: theater, ShowTime: showTime }),
         contentType: "application/json; charset=UTF-8",
         dataType: "json",
         success: function (data) {
@@ -51,7 +56,13 @@ function SetupTheater(theaterSize, data) {
         html += '<div class="theater-line-seats-wrappper">';
 
         $.each(line.seats, function (seatIndex, seat) {
-            html += '<div class="theater-line-seat-general theater-line-seat-' + theaterSize + '" data-seat-Number="' + seat.number + '"></div>';
+            console.log(seat);
+            if (seat.reserved !== "reserved") {
+                html += '<div class="theater-line-seat-general theater-line-seat-' + theaterSize + '" data-seat-Number="' + seat.number + '"></div>';
+            } else {
+                html += '<div class="theater-line-seat-reserved theater-line-seat-' + theaterSize + '" data-seat-Number="' + seat.number + '"></div>';
+            }
+            
             html += '<div data-seat-id="' + seat.seatId + '" hidden></div>';
         });
         html += '<div class="theater-line-number">' + line.number + '</div>';
@@ -95,8 +106,8 @@ function SetupTheater(theaterSize, data) {
                 choosenSeatsIds.push(choosenSeatId);
                 $(this).addClass("seat-choosen");
                 choosenSeats.sort(function (a, b) { //Array now becomes [7, 8, 25, 41]
-                    return a - b
-                })
+                    return a - b;
+                });
             }
             
         }
@@ -144,9 +155,6 @@ $("#reserveTicketForm").submit(function (e) {
             dataType: "json",
             success: function(data) {
                 console.log("We are done");
-            },
-            error: function (data) {
-                console.log("hey !!! " + data.responseText);
             }
            });
     });

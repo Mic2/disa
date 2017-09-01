@@ -18,20 +18,25 @@ namespace DISA.Controllers
     {
         [Route("/api/getTheater")]
         [HttpPost]
-        public List<Line> GetTheaterInformation([FromBody]string val)
+        public List<Line> GetTheaterInformation([FromBody]JObject data)
         {
-            
+            dynamic json = data;
+            JObject jsonTheater = json.Theater;
+            JObject jsonShowTime = json.ShowTime;
+            Theater theater = jsonTheater.ToObject<Theater>();
+            ShowTime showTime = jsonShowTime.ToObject<ShowTime>();
+            Debug.WriteLine("###########################################"+showTime.ShowTimeId);
+
             try
             {
-                Debug.WriteLine(val);
                 // Storing data about the theater that the user has choosen, this we only want to do with AJAX when the user clicks an time with a theater attached.
-                List<Line> lineList = GetTheaterLinesAndSeats(Convert.ToInt32(val)).Lines;
+                List<Line> lineList = GetTheaterLinesAndSeats(Convert.ToInt32(theater.Number), showTime.ShowTimeId ).Lines;
                 return lineList;
             }
             catch (Exception e)
             {
                 List<Line> lineList = new List<Line>();
-                Debug.WriteLine(e);
+                Debug.WriteLine("THIS IS AN IMPORTANT ERROR  "+e);
                 return lineList;
                
             }
@@ -66,11 +71,11 @@ namespace DISA.Controllers
 
         }
 
-        private Theater GetTheaterLinesAndSeats(int theaterNumber)
+        private Theater GetTheaterLinesAndSeats(int theaterNumber, int showTimeId)
         {
             Theater theater = new Theater();
-            theater.Number = Convert.ToInt32(theaterNumber);
-            theater.Lines = DalManager.Instance.GetTheaterLines(theaterNumber);
+            theater.Number = theaterNumber;
+            theater.Lines = DalManager.Instance.GetTheaterLines(theaterNumber, showTimeId);
 
             return theater;
         }
@@ -121,7 +126,5 @@ namespace DISA.Controllers
             }
 
         }
-
-
     }
 }

@@ -263,9 +263,10 @@ namespace DISA.Models
             con.Close();
         }
                 
-        public List<Line> GetTheaterLines(int theaterNumber)
+        public List<Line> GetTheaterLines(int theaterNumber, int showTimeId)
         {
-            string query = "SELECT PK_lineId, LineNumber FROM Line WHERE FK_theaterNumber = '" + theaterNumber + "'";
+            string query = "SELECT PK_lineId, lineNumber FROM ShowTime INNER JOIN Theater ON ShowTime.FK_theaterNumber = Theater.PK_theaterNumber INNER JOIN Line ON Line.FK_theaterNumber = ShowTime.FK_theaterNumber WHERE ShowTime.PK_showTimeId = "+ showTimeId + "";
+            Debug.WriteLine(query);
             List<Line> lines = new List<Line>();
             Line line = null;
 
@@ -280,7 +281,7 @@ namespace DISA.Models
                 while (dataReader.Read())
                 {
                     // Now getting all of the seats based on the line id
-                    seats = GetTheaterLineSeats(dataReader["PK_lineId"].ToString());
+                    seats = GetTheaterLineSeats(dataReader["PK_lineId"].ToString(), showTimeId);
 
                     // creating new line with all the seats it has and placing it in the line List
                     line = new Line(Convert.ToInt32(dataReader["lineNumber"]), seats);
@@ -301,11 +302,42 @@ namespace DISA.Models
             }
         }
 
-        private List<Seat> GetTheaterLineSeats(string lineId)
+        private List<int> GetReservedSeats(string lineId, int showTimeId)
+        {
+            string query = "SELECT FK_seatId FROM ticket INNER JOIN Seat ON Seat.PK_seatId = Ticket.FK_seatId WHERE FK_lineId = "+lineId+" AND Ticket.FK_showTimeId = "+showTimeId+"";
+            List<int> reservedSeats = new List<int>();
+
+            if (ConnectToDB() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(query, con);
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                //Read the data and store them in the list
+                while (dataReader.Read())
+                {
+                    reservedSeats.Add(Convert.ToInt32(dataReader["FK_seatId"]));
+                }
+
+                //close Data Reader
+                dataReader.Close();
+
+                //close Connection
+                con.Close();
+
+                return reservedSeats;
+            }
+            else
+            {
+                return reservedSeats;
+            }
+        }
+
+        private List<Seat> GetTheaterLineSeats(string lineId, int showTimeId)
         {
             string query = "SELECT PK_seatId, seatNumber FROM Seat WHERE FK_lineId = '" + lineId + "'";
             List<Seat> seats = new List<Seat>();
             Seat seat = null;
+            List<int> reservedSeatsList = GetReservedSeats(lineId, showTimeId);
 
             if (ConnectToDB() == true)
             {
@@ -316,6 +348,14 @@ namespace DISA.Models
                 while (dataReader.Read())
                 {
                     seat = new Seat(Convert.ToInt32(dataReader["seatNumber"]));
+                    seat.Reserved = "free";
+                    foreach (int seatId in reservedSeatsList) {
+                        if (Convert.ToInt32(dataReader["PK_seatId"]) == seatId) {
+                            seat.Reserved = "reserved";
+                            
+                        }
+                        
+                    }                  
                     seat.SeatId = Convert.ToInt32(dataReader["PK_seatId"]);
                     seats.Add(seat);
                 }
