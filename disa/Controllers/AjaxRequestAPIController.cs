@@ -9,6 +9,7 @@ using System.Diagnostics;
 using Newtonsoft.Json.Linq;
 using MySqlX.XDevAPI.Common;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DISA.Controllers
 {
@@ -16,6 +17,7 @@ namespace DISA.Controllers
     [Route("api/TheaterAPI")]
     public class AjaxRequestAPIController : Controller
     {
+        [AllowAnonymous]
         [Route("/api/getTheater")]
         [HttpPost]
         public List<Line> GetTheaterInformation([FromBody]JObject data)
@@ -43,6 +45,7 @@ namespace DISA.Controllers
                       
         }
 
+        [AllowAnonymous]
         [Route("/api/getMoviesByDate")]
         [HttpPost]
         public List<Movie> GetMoviesByDate([FromBody]string val)
@@ -80,6 +83,7 @@ namespace DISA.Controllers
             return theater;
         }
 
+        [AllowAnonymous]
         [Route("/api/insertCustomer")]
         [HttpPost]
         public void InsertCustomerFromReservation([FromBody]JObject data)
@@ -102,6 +106,7 @@ namespace DISA.Controllers
 
         }
 
+        [AllowAnonymous]
         [Route("/api/insertTicket")]
         [HttpPost]
         public void InsertTicketFromReservation([FromBody]JObject data)
