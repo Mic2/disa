@@ -1,5 +1,9 @@
 ﻿$(".theater-movie-is-related-to").on("click", function () {
-
+    if ($(".reserve-status-msg").length > 0) {
+        $(".reserve-status-msg").remove();
+    }
+    $("#choose-theater-msg").hide();
+     
     // Resseting values
     choosenSeats = [];
     choosenSeatsIds = [];
@@ -77,6 +81,9 @@ function SetupTheater(theaterSize, data) {
 
     // Controlling the seats choosen by the user.
     $(".theater-line-seat-general").on("click", function () {
+        if ($(".reserve-status-msg").length > 0) {
+            $(".reserve-status-msg").remove();
+        }
         var alreadyChoosen = false;
         var firstSeatChoosen = choosenSeats[0];
         var lastSeatChoosen = choosenSeats[choosenSeats.length - 1];
@@ -105,14 +112,12 @@ function SetupTheater(theaterSize, data) {
                 choosenSeats.push(seatNumber);
                 choosenSeatsIds.push(choosenSeatId);
                 $(this).addClass("seat-choosen");
-                choosenSeats.sort(function (a, b) { //Array now becomes [7, 8, 25, 41]
+                choosenSeats.sort(function (a, b) {
                     return a - b;
                 });
             }
             
         }
-        /*console.log(choosenSeats);
-        console.log(choosenSeatsIds);*/
     });
 
 
@@ -128,36 +133,53 @@ $("#reserveTicketForm").submit(function (e) {
     var customer = { "FullName": fullname, "PhoneNumber": phoneNumber };
     var showTime = { "ShowTimeId": showTimeId };
 
-    $.ajax({
-        url: '/api/insertCustomer',
-        type: "POST",
-        async: false,
-        data: JSON.stringify({ Customer: customer }),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (data) {
-            console.log(data);
-        }
-    });
-
-    console.log(choosenSeatsIds);
-    $.each(choosenSeatsIds, function (index, value) {
-        console.log(value);
-        var seatId = { "SeatId": value };
-    
-        // Send data for reservation
+    if (fullname !== "" && phoneNumber !== "" && choosenSeats.length > 0) {
         $.ajax({
-            url: '/api/insertTicket',
+            url: '/api/insertCustomer',
             type: "POST",
             async: false,
-            data: JSON.stringify({ Customer: customer, ShowTime: showTime, SeatId: seatId }),
+            data: JSON.stringify({ Customer: customer }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
-            success: function(data) {
-                console.log("We are done");
+            success: function (data) {
+                console.log(data);
             }
-           });
-    });
+        });
+
+        $.each(choosenSeatsIds, function (index, value) {
+            console.log(value);
+            var seatId = { "SeatId": value };
+    
+            // Send data for reservation
+            $.ajax({
+                url: '/api/insertTicket',
+                type: "POST",
+                async: false,
+                data: JSON.stringify({ Customer: customer, ShowTime: showTime, SeatId: seatId }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function(data) {
+                    console.log("We are done");
+                }
+            });
+        });
+    }
+    if (fullname !== "" && phoneNumber !== "" && choosenSeats.length > 0) {
+        if ($(".reserve-status-msg").length > 0) {
+            $(".reserve-status-msg").remove();
+        }
+        $('#moviepage-section-two').prepend('<div class="alert alert-success reserve-status-msg"><p>Thanks for using Disa Bio, Your reservation is now created!</p></div>');
+        setTimeout(function () {
+            location = ''
+        }, 5000)
+    }
+    else {
+        if ($(".reserve-status-msg").length > 0) {
+            $(".reserve-status-msg").remove();
+        }
+        $('#moviepage-section-two').prepend('<div class="alert alert-danger reserve-status-msg"><p>Something went wrong, you need to specify (Name, Phonenumber and select the seats you want to reserve.)</p></div>');
+    }
+    
 });
 
 
