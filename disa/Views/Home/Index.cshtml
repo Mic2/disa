@@ -29,7 +29,7 @@
     {
         <div class="col-md-3 movie-wrapper">
             <p>@item.Name</p>
-            <img src="@item.CoverImage" class="cover-image"/>
+            <img class="cover-image" src="@item.CoverImage"/>
             <form action="/Home/Movie" method="get">
                 <input type="text" name="movieName" value="@item.Name" hidden/>
                 <input class="btn reserver-button" type="submit" value="Reserver"/>
