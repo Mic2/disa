@@ -28,7 +28,7 @@
         type: "POST",
         data: JSON.stringify({ Theater: theater, ShowTime: showTime }),
         contentType: "application/json; charset=UTF-8",
-        dataType: "json",
+        //dataType: "json",
         success: function (data) {
      
             $("#line-and-seats-wrapper").html("");
@@ -168,8 +168,8 @@ $("#reserveTicketForm").submit(function (e) {
         }
         $('#moviepage-section-two').prepend('<div class="alert alert-success reserve-status-msg"><p>Thanks for using Disa Bio, Your reservation is now created!</p></div>');
         setTimeout(function () {
-            location = ''
-        }, 5000)
+            location = '';
+        }, 5000);
     }
     else {
         if ($(".reserve-status-msg").length > 0) {
