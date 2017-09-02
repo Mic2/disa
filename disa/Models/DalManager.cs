@@ -265,7 +265,7 @@ namespace DISA.Models
                 
         public List<Line> GetTheaterLines(int theaterNumber, int showTimeId)
         {
-            string query = "SELECT PK_lineId, lineNumber FROM ShowTime INNER JOIN Theater ON ShowTime.FK_theaterNumber = Theater.PK_theaterNumber INNER JOIN Line ON Line.FK_theaterNumber = ShowTime.FK_theaterNumber WHERE ShowTime.PK_showTimeId = "+ showTimeId + "";
+            string query = "SELECT PK_lineId, lineNumber FROM ShowTime INNER JOIN Theater ON ShowTime.FK_theaterNumber = Theater.PK_theaterNumber INNER JOIN Line ON Line.FK_theaterNumber = ShowTime.FK_theaterNumber WHERE ShowTime.PK_showTimeId = '"+ showTimeId + "'";
             Debug.WriteLine(query);
             List<Line> lines = new List<Line>();
             Line line = null;
