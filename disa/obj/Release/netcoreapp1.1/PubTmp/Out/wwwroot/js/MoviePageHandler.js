@@ -28,9 +28,9 @@
         type: "POST",
         data: JSON.stringify({ Theater: theater, ShowTime: showTime }),
         contentType: "application/json; charset=UTF-8",
-        dataType: "json",
+        //dataType: "json",
         success: function (data) {
-     
+            console.log(data);
             $("#line-and-seats-wrapper").html("");
 
             // Lets control the theater screen size
@@ -58,7 +58,7 @@ function SetupTheater(theaterSize, data) {
         html += '<div class="theater-line-seats-wrappper">';
 
         $.each(line.seats, function (seatIndex, seat) {
-            console.log(seat);
+
             if (seat.reserved !== "reserved") {
                 html += '<div class="theater-line-seat-general theater-line-seat-' + theaterSize + '" data-seat-Number="' + seat.number + '"></div>';
             } else {
@@ -168,8 +168,8 @@ $("#reserveTicketForm").submit(function (e) {
         }
         $('#moviepage-section-two').prepend('<div class="alert alert-success reserve-status-msg"><p>Thanks for using Disa Bio, Your reservation is now created!</p></div>');
         setTimeout(function () {
-            location = ''
-        }, 5000)
+            location = '';
+        }, 5000);
     }
     else {
         if ($(".reserve-status-msg").length > 0) {
