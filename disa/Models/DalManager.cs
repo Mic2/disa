@@ -334,7 +334,7 @@ namespace DISA.Models
 
         private List<Seat> GetTheaterLineSeats(string lineId, int showTimeId)
         {
-            string query = "SELECT PK_seatId, seatNumber FROM Seat WHERE FK_lineId = '" + lineId + "'";
+            string query = "SELECT PK_seatId, seatNumber FROM Seat WHERE FK_lineId = '" + lineId + "' LIMIT 3";
             List<Seat> seats = new List<Seat>();
             Seat seat = null;
             List<int> reservedSeatsList = GetReservedSeats(lineId, showTimeId);

@@ -14,14 +14,13 @@ using Microsoft.AspNetCore.Authorization;
 namespace DISA.Controllers
 {
     [Produces("application/json")]
-    [Route("api/AjaxRequestAPI")]
+    [Route("api/TheaterAPI")]
     public class AjaxRequestAPIController : Controller
     {
-        //[AllowAnonymous]
-        //[ActionName("GetTheaterInformation")]
+        [AllowAnonymous]
         [Route("/api/getTheater")]
         [HttpPost]
-        public ActionResult GetTheaterInformation([FromBody]JObject data)
+        public List<Line> GetTheaterInformation([FromBody]JObject data)
         {
             dynamic json = data;
             JObject jsonTheater = json.Theater;
@@ -34,21 +33,20 @@ namespace DISA.Controllers
             {
                 // Storing data about the theater that the user has choosen, this we only want to do with AJAX when the user clicks an time with a theater attached.
                 List<Line> lineList = GetTheaterLinesAndSeats(Convert.ToInt32(theater.Number), showTime.ShowTimeId ).Lines;
-                return Json(lineList);
+                return lineList;
             }
             catch (Exception e)
             {
                 List<Line> lineList = new List<Line>();
                 Debug.WriteLine("THIS IS AN IMPORTANT ERROR  "+e);
-                return Json(lineList);
+                return lineList;
                
             }
                       
         }
 
-        //[AllowAnonymous]
+        [AllowAnonymous]
         [Route("/api/getMoviesByDate")]
-        //[ActionName("GetMoviesByDate")]
         [HttpPost]
         public List<Movie> GetMoviesByDate([FromBody]string val)
         {
@@ -85,9 +83,8 @@ namespace DISA.Controllers
             return theater;
         }
 
-        //[AllowAnonymous]
+        [AllowAnonymous]
         [Route("/api/insertCustomer")]
-        //[ActionName("InsertCustomerFromReservation")]
         [HttpPost]
         public void InsertCustomerFromReservation([FromBody]JObject data)
         {
@@ -109,9 +106,8 @@ namespace DISA.Controllers
 
         }
 
-        //[AllowAnonymous]
+        [AllowAnonymous]
         [Route("/api/insertTicket")]
-        //[ActionName("InsertTicketFromReservation")]
         [HttpPost]
         public void InsertTicketFromReservation([FromBody]JObject data)
         {
