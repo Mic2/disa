@@ -304,7 +304,7 @@ namespace DISA.Models
 
         private List<int> GetReservedSeats(string lineId, int showTimeId)
         {
-            string query = "SELECT FK_seatId FROM ticket INNER JOIN Seat ON Seat.PK_seatId = Ticket.FK_seatId WHERE FK_lineId = "+lineId+" AND Ticket.FK_showTimeId = "+showTimeId+"";
+            string query = "SELECT FK_seatId FROM Ticket INNER JOIN Seat ON Seat.PK_seatId = Ticket.FK_seatId WHERE FK_lineId = "+lineId+" AND Ticket.FK_showTimeId = "+showTimeId+"";
             List<int> reservedSeats = new List<int>();
 
             if (ConnectToDB() == true)
