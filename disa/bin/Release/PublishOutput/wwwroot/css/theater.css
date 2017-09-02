@@ -1,0 +1,121 @@
+﻿.theater-line-number {
+    display: inline-block;
+    min-width: 25px;
+    /*padding-right: 5px;*/
+}
+
+/*This style is only for Dekstop, tablet and small devices NOT under 555px users*/
+@media (min-width:552px) {
+
+    .theater-line-seat-big {
+        padding: 13px;
+    }
+
+    .theater-line-seat-medium {
+        padding: 19px;
+    }
+
+    .theater-line-seat-small {
+        padding: 27px;
+    }
+}
+
+@media (min-width: 456px) and (max-width:551px) {
+
+    .theater-line-seat-big {
+        padding: 6px;
+    }
+
+    .theater-line-seat-medium {
+        padding: 6px;
+    }
+
+    .theater-line-seat-small {
+        padding: 6px;
+    }
+
+}
+
+@media (min-width: 321px) and (max-width:455px) {
+
+    .theater-line-seat-big {
+        padding: 6px;
+    }
+    .theater-line-seat-medium {
+        padding: 8px;
+    }
+
+    .theater-line-seat-small {
+        padding: 12px;
+    }
+}
+
+@media (max-width: 320px) {
+
+    .theater-line-seat-big {
+        padding: 4px;
+    }
+
+    .theater-line-seat-medium {
+        padding: 6px;
+    }
+
+    .theater-line-seat-small {
+        padding: 9px;
+    }
+
+}
+
+
+#theater-screen-big, #theater-screen-medium, #theater-screen-small {
+    border-top: 4px dotted black;
+    min-height: 20px;
+    border-radius: 250%;
+    margin-bottom: 10px;
+    padding: 20px;
+    text-align: center;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.theater-line-seat-general {
+    display: inline-block;
+    background-color: green;
+    cursor: pointer;
+    margin-left: 2px;
+}
+
+.theater-line-seat-reserved {
+    display: inline-block;
+    background-color: red;
+    cursor: not-allowed;
+    margin-left: 2px;
+}
+
+.theater-line-wrapper {
+    text-align: right;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+#line-and-seats-wrapper {
+    margin: auto;
+}
+
+
+.theater-line-seats-wrappper {
+    display: inline-block;
+}
+
+
+#theater-wrapper {
+    border: 1px solid black;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-bottom: 40px;
+    left:0;
+    right: 0;
+    margin: auto;
+}
