@@ -168,8 +168,8 @@ $("#reserveTicketForm").submit(function (e) {
         }
         $('#moviepage-section-two').prepend('<div class="alert alert-success reserve-status-msg"><p>Thanks for using Disa Bio, Your reservation is now created!</p></div>');
         setTimeout(function () {
-            location = ''
-        }, 5000)
+            location = '';
+        }, 5000);
     }
     else {
         if ($(".reserve-status-msg").length > 0) {

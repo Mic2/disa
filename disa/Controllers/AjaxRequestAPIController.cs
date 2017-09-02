@@ -21,7 +21,7 @@ namespace DISA.Controllers
         //[ActionName("GetTheaterInformation")]
         [Route("/api/getTheater")]
         [HttpPost]
-        public List<Line> GetTheaterInformation([FromBody]JObject data)
+        public ActionResult GetTheaterInformation([FromBody]JObject data)
         {
             dynamic json = data;
             JObject jsonTheater = json.Theater;
@@ -32,19 +32,15 @@ namespace DISA.Controllers
 
             try
             {
-                Theater newTheater = new Theater();
-                theater.Number = Convert.ToInt32(theater.Number);
-                theater.Lines = DalManager.Instance.GetTheaterLines(Convert.ToInt32(theater.Number), showTime.ShowTimeId);
                 // Storing data about the theater that the user has choosen, this we only want to do with AJAX when the user clicks an time with a theater attached.
-                List<Line> lineList = theater.Lines;
-                //List<Line> lineList = GetTheaterLinesAndSeats(Convert.ToInt32(theater.Number), showTime.ShowTimeId ).Lines;
-                return lineList;
+                List<Line> lineList = GetTheaterLinesAndSeats(Convert.ToInt32(theater.Number), showTime.ShowTimeId ).Lines;
+                return Json(lineList);
             }
             catch (Exception e)
             {
                 List<Line> lineList = new List<Line>();
                 Debug.WriteLine("THIS IS AN IMPORTANT ERROR  "+e);
-                return lineList;
+                return Json(lineList);
                
             }
                       
@@ -80,14 +76,14 @@ namespace DISA.Controllers
 
         }
 
-        /*private Theater GetTheaterLinesAndSeats(int theaterNumber, int showTimeId)
+        private Theater GetTheaterLinesAndSeats(int theaterNumber, int showTimeId)
         {
             Theater theater = new Theater();
             theater.Number = theaterNumber;
             theater.Lines = DalManager.Instance.GetTheaterLines(theaterNumber, showTimeId);
 
             return theater;
-        }*/
+        }
 
         //[AllowAnonymous]
         [Route("/api/insertCustomer")]
