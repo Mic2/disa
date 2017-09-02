@@ -38,6 +38,8 @@ namespace DISA.Controllers
             catch (Exception e)
             {
                 List<Line> lineList = new List<Line>();
+                Line line = new Line(0, new List<Seat>());
+                                
                 Debug.WriteLine("THIS IS AN IMPORTANT ERROR  "+e);
                 return lineList;
                
