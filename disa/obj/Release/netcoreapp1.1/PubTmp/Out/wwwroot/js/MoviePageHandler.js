@@ -30,7 +30,7 @@
         contentType: "application/json; charset=UTF-8",
         //dataType: "json",
         success: function (data) {
-     
+            console.log(data);
             $("#line-and-seats-wrapper").html("");
 
             // Lets control the theater screen size
@@ -58,7 +58,7 @@ function SetupTheater(theaterSize, data) {
         html += '<div class="theater-line-seats-wrappper">';
 
         $.each(line.seats, function (seatIndex, seat) {
-            console.log(seat);
+
             if (seat.reserved !== "reserved") {
                 html += '<div class="theater-line-seat-general theater-line-seat-' + theaterSize + '" data-seat-Number="' + seat.number + '"></div>';
             } else {
