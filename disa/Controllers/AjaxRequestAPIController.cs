@@ -14,10 +14,11 @@ using Microsoft.AspNetCore.Authorization;
 namespace DISA.Controllers
 {
     [Produces("application/json")]
-    [Route("api/TheaterAPI")]
+    [Route("api/AjaxRequestAPI")]
     public class AjaxRequestAPIController : Controller
     {
-        [AllowAnonymous]
+        //[AllowAnonymous]
+        //[ActionName("GetTheaterInformation")]
         [Route("/api/getTheater")]
         [HttpPost]
         public List<Line> GetTheaterInformation([FromBody]JObject data)
@@ -31,8 +32,12 @@ namespace DISA.Controllers
 
             try
             {
+                Theater newTheater = new Theater();
+                theater.Number = Convert.ToInt32(theater.Number);
+                theater.Lines = DalManager.Instance.GetTheaterLines(Convert.ToInt32(theater.Number), showTime.ShowTimeId);
                 // Storing data about the theater that the user has choosen, this we only want to do with AJAX when the user clicks an time with a theater attached.
-                List<Line> lineList = GetTheaterLinesAndSeats(Convert.ToInt32(theater.Number), showTime.ShowTimeId ).Lines;
+                List<Line> lineList = theater.Lines;
+                //List<Line> lineList = GetTheaterLinesAndSeats(Convert.ToInt32(theater.Number), showTime.ShowTimeId ).Lines;
                 return lineList;
             }
             catch (Exception e)
@@ -45,8 +50,9 @@ namespace DISA.Controllers
                       
         }
 
-        [AllowAnonymous]
+        //[AllowAnonymous]
         [Route("/api/getMoviesByDate")]
+        //[ActionName("GetMoviesByDate")]
         [HttpPost]
         public List<Movie> GetMoviesByDate([FromBody]string val)
         {
@@ -74,17 +80,18 @@ namespace DISA.Controllers
 
         }
 
-        private Theater GetTheaterLinesAndSeats(int theaterNumber, int showTimeId)
+        /*private Theater GetTheaterLinesAndSeats(int theaterNumber, int showTimeId)
         {
             Theater theater = new Theater();
             theater.Number = theaterNumber;
             theater.Lines = DalManager.Instance.GetTheaterLines(theaterNumber, showTimeId);
 
             return theater;
-        }
+        }*/
 
-        [AllowAnonymous]
+        //[AllowAnonymous]
         [Route("/api/insertCustomer")]
+        //[ActionName("InsertCustomerFromReservation")]
         [HttpPost]
         public void InsertCustomerFromReservation([FromBody]JObject data)
         {
@@ -106,8 +113,9 @@ namespace DISA.Controllers
 
         }
 
-        [AllowAnonymous]
+        //[AllowAnonymous]
         [Route("/api/insertTicket")]
+        //[ActionName("InsertTicketFromReservation")]
         [HttpPost]
         public void InsertTicketFromReservation([FromBody]JObject data)
         {

@@ -28,7 +28,7 @@
         type: "POST",
         data: JSON.stringify({ Theater: theater, ShowTime: showTime }),
         contentType: "application/json; charset=UTF-8",
-        dataType: "json",
+        //dataType: "json",
         success: function (data) {
      
             $("#line-and-seats-wrapper").html("");
