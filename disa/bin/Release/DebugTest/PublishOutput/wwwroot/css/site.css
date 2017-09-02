@@ -1,0 +1,147 @@
+﻿body {
+    padding-top: 80px;
+    padding-bottom: 20px;
+}
+
+.header-link {
+    float: right;
+    color: white;
+    margin-left: 5px;
+    padding: 15px;
+    background-color: #73e600;
+}
+
+.header-link:hover {
+    color:white;
+    text-decoration: none;
+}
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+#top-navbar {
+    background-color: #222;
+    border-color: #080808;
+    border-bottom: 3px solid #73e600;
+    box-shadow: 0px 0px 10px 8px;
+    margin-bottom: 120px;
+}
+
+#welcome-text {
+    margin-top: 20px;
+}
+
+.movie-wrapper {
+    text-align: center;
+}
+
+.movie-wrapper p {
+    font-weight: 700;
+}
+
+.reserver-button {
+    width: 230px;
+    background-color: #73e600;
+}
+
+#frontpage-date-selecbox {
+    padding-top: 40px;
+    max-width: 288px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    text-align: center;
+}
+
+#frontpage-date-selecbox select {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#frontpage-date-selecbox select:focus {
+    outline: none;
+}
+
+.cover-image {
+    display: block;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 230px;
+    height: 345px;
+}
+
+#front-page-movie-outer-wrapper {
+    margin-top: 40px;
+}
+
+#addShowTimeToForm {
+    margin-bottom: 20px;
+}
+
+#multiShowTimeInputWrapper input {
+    margin-bottom: 20px;
+}
+
+#showtimeInput {
+    display: inline-block;
+    max-width: 80%;
+}
+
+#showtimeTheaterInput, #theaterNumberInput {
+    display: inline-block;
+    max-width: 80px;
+}
+
+.input-remove-group {
+    display: inline;
+}
+
+.input-remove-group img {
+    max-width: 30px;
+}
+
+
+.input-remove-group input {
+    max-width: 80%;
+}
+
+
+.input-remove-group img, .input-remove-group input {
+    display: inline;
+}
+
+#moviepage-section-two {
+    margin-top: 40px;
+}
+
+.google-maps {
+    position: relative;
+    padding-bottom: 75%;
+    height: 0;
+    overflow: hidden;
+}
+
+.google-maps iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+
+
+/* Set widths on the form inputs since otherwise they're 100% wide */
+/*input,
+select,
+textarea {
+    max-width: 280px;
+}*/
+

@@ -13,8 +13,6 @@ db.xml
 *.userprefs
 
 # Build results
-[Dd]ebug/
-[Dd]ebugPublic/
 x64/
 x86/
 build/
