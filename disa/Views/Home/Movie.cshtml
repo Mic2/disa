@@ -30,8 +30,7 @@
     </div>
 </div>
 <div id="moviepage-section-two" class="row">
-    <p>Ticket price: @ViewData["movieTicketPrice"]</p>
-    <p id="total-reservation-price">Total price:</p>
+    
     <div id="theater-wrapper" class="col-md-8">
         
         <div id="line-and-seats-wrapper">
@@ -40,6 +39,10 @@
         </div>
     </div>
     <div class="col-md-4">
+        <div class="price-wrapper">
+            <p>Ticket price: @ViewData["movieTicketPrice"]</p>
+            <p id="total-reservation-price">Total price:</p>
+        </div>
         <form id="reserveTicketForm">
             <div class="form-group">
                 <label for="fullNameInput">Fullname:</label>

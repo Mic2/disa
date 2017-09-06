@@ -114,8 +114,8 @@
     border: 1px solid black;
     padding-top: 20px;
     padding-bottom: 20px;
-    margin-bottom: 40px;
-    left:0;
+    margin-bottom: 20px !important;
+    left: 0;
     right: 0;
     margin: auto;
 }
