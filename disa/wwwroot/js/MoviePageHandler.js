@@ -35,15 +35,15 @@
 
             // Lets control the theater screen size
             if (parseInt(number) <= 2) {
-                $("#line-and-seats-wrapper").append('<div id="theater-screen-big">Lærred</div>');
+                $("#line-and-seats-wrapper").append('<div id="theater-screen-big">Canvas</div>');
                 SetupTheater("big", data);
             }
             else if (parseInt(number) <= 5) {
-                $("#line-and-seats-wrapper").append('<div id="theater-screen-medium">Lærred</div>');
+                $("#line-and-seats-wrapper").append('<div id="theater-screen-medium">Canvas</div>');
                 SetupTheater("medium", data);
             }
             else {
-                $("#line-and-seats-wrapper").append('<div id="theater-screen-small">Lærred</div>');
+                $("#line-and-seats-wrapper").append('<div id="theater-screen-small">Canvas</div>');
                 SetupTheater("small", data);
             }
         }
