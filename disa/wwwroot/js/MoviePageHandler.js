@@ -1,4 +1,5 @@
 ﻿$(".theater-movie-is-related-to").on("click", function () {
+    $('#total-reservation-price').html('Total price: ');
     if ($(".reserve-status-msg").length > 0) {
         $(".reserve-status-msg").remove();
     }
