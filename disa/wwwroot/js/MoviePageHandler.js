@@ -15,7 +15,7 @@
     $(this).addClass("choosen");
 
     var value = $(this).text();
-    var number = value.replace("Sal: ", "");
+    var number = value.replace("Theater: ", "");
 
     choosenTheater = number;
     showTimeId = $(this).next().next('.show-time-id').data("showtime-id");

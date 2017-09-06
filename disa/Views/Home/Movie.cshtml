@@ -20,7 +20,7 @@
         {
             @foreach (var showTime in item.ShowTimes as IEnumerable<DISA.Models.ShowTime>)
             {
-                <p class="theater-movie-is-related-to">Sal: @showTime.Theater.Number</p>
+                <p class="theater-movie-is-related-to">Theater: @showTime.Theater.Number</p>
                 <p>@showTime.Time</p>
                 <div class="show-time-id" data-showtime-id="@showTime.ShowTimeId"></div>
                 <hr />
