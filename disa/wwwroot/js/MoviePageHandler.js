@@ -116,6 +116,20 @@ function SetupTheater(theaterSize, data) {
             }
             
         }
+
+        // Lets control the price for the reservation based on seats choosen.
+        var ticketPrice = 90;
+        var totalPrice = 0;
+        if (choosenSeats.length > 0) {
+            $.each(choosenSeats, function (index, value) {
+                totalPrice = totalPrice + ticketPrice;
+                $('#total-reservation-price').html('Total price: ' + totalPrice);
+            });
+        } else {
+            $('#total-reservation-price').html('Total price: ');
+        }
+        
+        console.log(totalPrice);
     });
 
 
