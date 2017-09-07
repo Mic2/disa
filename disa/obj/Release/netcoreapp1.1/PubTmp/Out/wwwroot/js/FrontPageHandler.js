@@ -1,9 +1,10 @@
-﻿$("#frontPageSelectBox").change(function () {
+﻿/*This JS script will update the frontpage movie selection based on the user choice of date */
+$("#frontPageSelectBox").change(function () {
 
+    // Collecting the date to sort view on, provided by the user.
     var date = $(this).find(':selected').data("real-date");
 
-    console.log(date);
-
+    // Calling web api AjaxRequestAPIController, to perform action on behalf of the view.
     $.ajax({
         url: '/api/getMoviesByDate',
         type: "POST",
@@ -12,10 +13,10 @@
         dataType: "json",
         success: function (data) {
 
-
+            // On success return value, the view will be updated based on the returned values from the controller.
             $("#front-page-movie-outer-wrapper").html("");
 
-
+            // Looping throug all of the movies return from the controller.
             $.each(data, function (MovieIndex, Movie) {
                 var html = '<div class="col-md-3 movie-wrapper">';
                 html += '<p>'+ Movie.name + '</p>';
@@ -29,11 +30,6 @@
                 html += '</div>';
                 $("#front-page-movie-outer-wrapper").append(html);
             });
-
-
-
-            console.log(data);
-
         }
     });
 

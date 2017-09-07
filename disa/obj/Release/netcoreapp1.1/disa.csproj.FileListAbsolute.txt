@@ -8,3 +8,12 @@ C:\Visual Studio Workspaces\disa\disa\obj\Release\netcoreapp1.1\disa.csproj.Core
 C:\Visual Studio Workspaces\disa\disa\obj\Release\netcoreapp1.1\disa.AssemblyInfo.cs
 C:\Visual Studio Workspaces\disa\disa\obj\Release\netcoreapp1.1\disa.dll
 C:\Visual Studio Workspaces\disa\disa\obj\Release\netcoreapp1.1\disa.pdb
+C:\Visual studio projects\disa\disa\bin\Release\netcoreapp1.1\disa.deps.json
+C:\Visual studio projects\disa\disa\bin\Release\netcoreapp1.1\disa.runtimeconfig.json
+C:\Visual studio projects\disa\disa\bin\Release\netcoreapp1.1\disa.runtimeconfig.dev.json
+C:\Visual studio projects\disa\disa\bin\Release\netcoreapp1.1\disa.dll
+C:\Visual studio projects\disa\disa\bin\Release\netcoreapp1.1\disa.pdb
+C:\Visual studio projects\disa\disa\obj\Release\netcoreapp1.1\disa.csprojResolveAssemblyReference.cache
+C:\Visual studio projects\disa\disa\obj\Release\netcoreapp1.1\disa.AssemblyInfo.cs
+C:\Visual studio projects\disa\disa\obj\Release\netcoreapp1.1\disa.dll
+C:\Visual studio projects\disa\disa\obj\Release\netcoreapp1.1\disa.pdb
