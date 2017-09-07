@@ -266,7 +266,6 @@ namespace DISA.Models
         public List<Line> GetTheaterLines(int theaterNumber, int showTimeId)
         {
             string query = "SELECT PK_lineId, lineNumber FROM ShowTime INNER JOIN Theater ON ShowTime.FK_theaterNumber = Theater.PK_theaterNumber INNER JOIN Line ON Line.FK_theaterNumber = ShowTime.FK_theaterNumber WHERE ShowTime.PK_showTimeId = '"+ showTimeId + "'";
-            Debug.WriteLine(query);
             List<Line> lines = new List<Line>();
             Line line = null;
 
@@ -453,8 +452,6 @@ namespace DISA.Models
             if (ConnectToDB() == true)
             {
                 MySqlCommand comm = con.CreateCommand();
-
-                Debug.WriteLine("WE ARE IN HERE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
                 comm.CommandText = "INSERT INTO Customer(PK_phoneNumber, fullName) VALUES(@phoneNumber, @fullName)";
                 comm.Parameters.AddWithValue("@phoneNumber", phoneNumber);
