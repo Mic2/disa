@@ -22,12 +22,12 @@ namespace DISA.Controllers
         [HttpPost]
         public List<Line> GetTheaterInformation([FromBody]JObject data)
         {
+            // Storing Json data in Models
             dynamic json = data;
             JObject jsonTheater = json.Theater;
             JObject jsonShowTime = json.ShowTime;
             Theater theater = jsonTheater.ToObject<Theater>();
             ShowTime showTime = jsonShowTime.ToObject<ShowTime>();
-            Debug.WriteLine("###########################################"+showTime.ShowTimeId);
 
             try
             {
@@ -37,10 +37,9 @@ namespace DISA.Controllers
             }
             catch (Exception e)
             {
+                // IF something went wrong we return an empty list.
                 List<Line> lineList = new List<Line>();
                 Line line = new Line(0, new List<Seat>());
-                                
-                Debug.WriteLine("THIS IS AN IMPORTANT ERROR  "+e);
                 return lineList;
                
             }
@@ -55,6 +54,7 @@ namespace DISA.Controllers
             try
             {
                 List<Movie> movieList = new List<Movie>();
+                // Now if the user dont have made a date choice on the frontpage we call the default, wich will give all movies with a showtime higher that right now
                 if (val == "Default")
                 {
                     movieList = DalManager.Instance.GetAllMoviesByShowTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), ">");
@@ -68,6 +68,7 @@ namespace DISA.Controllers
             }
             catch (Exception e)
             {
+                // If there was an error getting data, we return an empty list
                 List<Movie> movieList = new List<Movie>();
                 Debug.WriteLine(e);
                 return movieList;
@@ -78,6 +79,7 @@ namespace DISA.Controllers
 
         private Theater GetTheaterLinesAndSeats(int theaterNumber, int showTimeId)
         {
+            // Creating new instance of theater manager, and using this in GetTheaterInformation() method
             Theater theater = new Theater();
             theater.Number = theaterNumber;
             theater.Lines = DalManager.Instance.GetTheaterLines(theaterNumber, showTimeId);
@@ -92,7 +94,7 @@ namespace DISA.Controllers
         {
             try
             {
-
+                // Storing Json data in Customer object, and inserting the customer in the database
                 dynamic json = data;
                 JObject customer = json.Customer;
   
@@ -115,7 +117,7 @@ namespace DISA.Controllers
         {
             try
             {
-
+                // Storing Json data in Models for use on the DBManager to store the reservation.
                 dynamic json = data;
                 JObject customer = json.Customer;
                 JObject showTime = json.ShowTime;
