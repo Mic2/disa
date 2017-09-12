@@ -120,7 +120,7 @@ function SetupTheater(theaterSize, data) {
         }
 
         // Lets make sure we are on the same line number
-        if ($(this).nextAll('.theater-line-number').text() == choosenLine[0]) {
+        if ($(this).nextAll('.theater-line-number').text() === choosenLine[0]) {
 
             // If the user choose to remove a seat from the reservation we pull the data out of the choosenSeats array, and updating the view.
             if ($.inArray(seatNumber, choosenSeats) !== -1) {
@@ -197,26 +197,22 @@ $("#reserveTicketForm").submit(function (e) {
         });
 
         // Since every seat is treatend as 1 reservation in the system, we make call the web api controller for every seat choosen by the user.
-        $.each(choosenSeatsIds, function (index, value) {
-            console.log(value);
-            var seatId = { "SeatId": value };
-    
-            // Send data for reservation
-            $.ajax({
-                url: '/api/insertTicket',
-                type: "POST",
-                async: false,
-                data: JSON.stringify({ Customer: customer, ShowTime: showTime, SeatId: seatId }),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function(data) {
- 
-                }
-            });
+        var result = 0;
+        // Send data for reservation
+        $.ajax({
+            url: '/api/insertTicket',
+            type: "POST",
+            async: false,
+            data: JSON.stringify({ Customer: customer, ShowTime: showTime, SeatIds: choosenSeatsIds }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(data) {
+                result = data;
+            }
         });
     }
     // Now if we have a message to the user that we need information, but the user now have filled the missing parts, we remove the message.
-    if (fullname !== "" && phoneNumber !== "" && choosenSeats.length > 0) {
+    if (fullname !== "" && phoneNumber !== "" && choosenSeats.length > 0 && result > 0) {
         if ($(".reserve-status-msg").length > 0) {
             $(".reserve-status-msg").remove();
         }

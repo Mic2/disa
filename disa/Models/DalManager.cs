@@ -431,20 +431,27 @@ namespace DISA.Models
             return dbSettings;
         }
 
-        public void InsertTicket(int phoneNumber, int showTimeId, int seatId)
+        public int InsertTicket(int phoneNumber, int showTimeId, List<int> seatIds)
         {
+            int result = 0;
             if (ConnectToDB() == true)
             {
                 MySqlCommand comm = con.CreateCommand();
-
-                comm.CommandText = "INSERT INTO Ticket(FK_phoneNumber, FK_showTimeId, FK_seatId) VALUES(@phoneNumber, @showTimeId, @seatId)";
-                comm.Parameters.AddWithValue("@phoneNumber", phoneNumber);
-                comm.Parameters.AddWithValue("@showTimeId", showTimeId);
-                comm.Parameters.AddWithValue("@seatId", seatId);
-                comm.ExecuteNonQuery();
+                comm.CommandText = "INSERT INTO Ticket(FK_phoneNumber, FK_showTimeId, FK_seatId) VALUES ";
+                foreach (int seatId in seatIds)
+                {
+                    comm.CommandText += "(" + phoneNumber + "," + showTimeId + "," + seatId + ")";
+                    if (seatIds[seatIds.Count - 1] != seatId)
+                    {
+                        comm.CommandText += ",";
+                    }
+                }
+                Debug.WriteLine("THE QUEREY:::::: "+comm.CommandText);
+                result = comm.ExecuteNonQuery();
             }
 
             con.Close();
+            return result;
         }
 
         public void InsertCustomer(string fullName, int phoneNumber)

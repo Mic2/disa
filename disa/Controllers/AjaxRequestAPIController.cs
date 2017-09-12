@@ -113,27 +113,30 @@ namespace DISA.Controllers
         [AllowAnonymous]
         [Route("/api/insertTicket")]
         [HttpPost]
-        public void InsertTicketFromReservation([FromBody]JObject data)
+        public int InsertTicketFromReservation([FromBody]JObject data)
         {
+            int result = 0;
             try
             {
                 // Storing Json data in Models for use on the DBManager to store the reservation.
                 dynamic json = data;
                 JObject customer = json.Customer;
                 JObject showTime = json.ShowTime;
-                JObject seatId = json.SeatId;
-
+                JArray seatIds = json.SeatIds;
+                
                 Customer newCustomer = customer.ToObject<Customer>();
                 ShowTime newShowTime = showTime.ToObject<ShowTime>();
-                Seat seat = seatId.ToObject<Seat>();
+                List<int> seatList = seatIds.ToObject<List<int>>();
 
-                DalManager.Instance.InsertTicket(Convert.ToInt32(newCustomer.PhoneNumber), newShowTime.ShowTimeId, seat.SeatId);
+                Debug.WriteLine("THIS IS the seatidlist"+seatList);
+
+                result = DalManager.Instance.InsertTicket(Convert.ToInt32(newCustomer.PhoneNumber), newShowTime.ShowTimeId, seatList);
             }
             catch (Exception e)
             {
                 Debug.WriteLine(e);
             }
-
+            return result;
         }
     }
 }
