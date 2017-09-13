@@ -202,32 +202,33 @@ $("#reserveTicketForm").submit(function (e) {
         $.ajax({
             url: '/api/insertTicket',
             type: "POST",
-            async: false,
+            async: true,
             data: JSON.stringify({ Customer: customer, ShowTime: showTime, SeatIds: choosenSeatsIds }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function(data) {
                 result = data;
+                // Now if we have a message to the user that we need information, but the user now have filled the missing parts, we remove the message.
+                if (fullname !== "" && phoneNumber !== "" && choosenSeats.length > 0 && result > 0) {
+                    if ($(".reserve-status-msg").length > 0) {
+                        $(".reserve-status-msg").remove();
+                    }
+                    // If all information is valid we tell the user that the reservation is complete.
+                    $('#moviepage-section-two').prepend('<div class="alert alert-success reserve-status-msg"><p>Thanks for using Disa Bio, Your reservation is now created!</p></div>');
+                    setTimeout(function () {
+                        location = '';
+                    }, 5000);
+                }
+                else {
+                    if ($(".reserve-status-msg").length > 0) {
+                        $(".reserve-status-msg").remove();
+                    }
+                    $('#moviepage-section-two').prepend('<div class="alert alert-danger reserve-status-msg"><p>Something went wrong, you need to specify (Name, Phonenumber and select the seats you want to reserve.)</p></div>');
+                }
             }
         });
     }
-    // Now if we have a message to the user that we need information, but the user now have filled the missing parts, we remove the message.
-    if (fullname !== "" && phoneNumber !== "" && choosenSeats.length > 0 && result > 0) {
-        if ($(".reserve-status-msg").length > 0) {
-            $(".reserve-status-msg").remove();
-        }
-        // If all information is valid we tell the user that the reservation is complete.
-        $('#moviepage-section-two').prepend('<div class="alert alert-success reserve-status-msg"><p>Thanks for using Disa Bio, Your reservation is now created!</p></div>');
-        setTimeout(function () {
-            location = '';
-        }, 5000);
-    }
-    else {
-        if ($(".reserve-status-msg").length > 0) {
-            $(".reserve-status-msg").remove();
-        }
-        $('#moviepage-section-two').prepend('<div class="alert alert-danger reserve-status-msg"><p>Something went wrong, you need to specify (Name, Phonenumber and select the seats you want to reserve.)</p></div>');
-    }
+    
     
 });
 
